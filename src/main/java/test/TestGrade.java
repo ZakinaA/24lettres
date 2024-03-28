@@ -4,7 +4,7 @@
  */
 package test;
 
-import model.MetierGrade;
+import model.Grade;
 
 
 
@@ -12,10 +12,10 @@ import model.MetierGrade;
  *
  * @author mahdi.ashuri
  */
-public class TestMetierGrade {
+public class TestGrade {
 public static void main(String[] args) {
         
-        MetierGrade Grade = new MetierGrade();
+        Grade Grade = new Grade();
         Grade.setId(1);
         Grade.setLibelle("Mahdi");
        
