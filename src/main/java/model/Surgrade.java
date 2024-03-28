@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ts1sio
@@ -12,6 +14,7 @@ public class Surgrade {
     
     private int id;
     private String libelle;
+    private ArrayList<Grade> lesGrades;
     
     public int getId() {
         return id;
@@ -27,6 +30,14 @@ public class Surgrade {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
+    }
+    
+    public ArrayList<Grade> getLesGrades() {
+        return lesGrades;
+    }
+
+    public void setLesGrades(ArrayList<Grade> lesGrades) {
+        this.lesGrades = lesGrades;
     }
     
 }
