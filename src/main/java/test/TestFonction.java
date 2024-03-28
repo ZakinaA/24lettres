@@ -17,5 +17,6 @@ public class TestFonction {
         f.setId(1);
         f.setLibelle("Fonction1");
         
+         System.out.println ("La fonction numéro " + f.getId() + " correspond à " + f.getLibelle());
     }
 }
