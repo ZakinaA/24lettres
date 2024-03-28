@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.Pompier"%>
+<%@page import="model.Fonction"%>
 <%@page import="model.Caserne"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
@@ -34,13 +34,13 @@
             <tbody>
                 <tr>
                     <%
-                        for (Pompier p : lesPompiers)
+                        for (Fonction f : lesFonctions)
                         {              
                             out.println("<tr><td>");
                             out.println(f.getId());
                             out.println("</a></td>");
 
-                            out.println("<td><a href ='../ServletFonction/consulter?idFonction="+ f.getId()+ "'>");
+                            out.println("<td>");
                             out.println(f.getLibelle());
                             out.println("</td>");
     
