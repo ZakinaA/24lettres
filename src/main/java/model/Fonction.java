@@ -44,7 +44,7 @@ public class Fonction {
         return lesFonctions;
     }
 
-    public void setLesPompiers(ArrayList<Fonction> lesFonction) {
+    public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
         this.lesFonctions = lesFonctions;
     }
     
