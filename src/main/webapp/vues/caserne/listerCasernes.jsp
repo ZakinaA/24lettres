@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.Caserne"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,23 +38,23 @@
                         for (Caserne c : lesCasernes)
                         {              
                             out.println("<tr><td>");
-                            out.println(p.getId());
+                            out.println(c.getId());
                             out.println("</a></td>");
 
-                            out.println("<td><a href ='../ServletCaserne/consulter?idCaserne="+ p.getId()+ "'>");
-                            out.println(p.getNom());
+                            out.println("<td><a href ='../ServletCaserne/consulter?idCaserne="+ c.getId()+ "'>");
+                            out.println(c.getNom());
                             out.println("</td>");;
                             
                             out.println("<td>");
-                            out.println(p.getRue());
+                            out.println(c.getRue());
                             out.println("</td>");
                             
                             out.println("<td>");
-                            out.println(p.getCopos());
+                            out.println(c.getCopos());
                             out.println("</td>");
                             
                             out.println("<td>");
-                            out.println(p.getVille());
+                            out.println(c.getVille());
                             out.println("</td>");
                                
                         }
