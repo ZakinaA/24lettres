@@ -4,7 +4,9 @@
  */
 package test;
 
+import java.time.LocalDate;
 import model.Vehicule;
+import model.TypeVehicule;
 
 /**
  *
@@ -16,10 +18,21 @@ public class TestVehicule {
         
         Vehicule vehicule1 = new Vehicule();
         vehicule1.setId(1);
-        vehicule1.setLibelle("EPA");
+        vehicule1.setImmat("EPA");
+        vehicule1.setDateOrigine(LocalDate.of(1995, 12, 5));
+        vehicule1.setDateRevision(LocalDate.of(2022, 1, 3));
         
-        System.out.println("Le véhicule n°" + vehicule1.getId() + " est un " + vehicule1.getLibelle());
+        
+        
+        TypeVehicule typeVehicule1 = new TypeVehicule();
+        typeVehicule1.setId(1);
+        typeVehicule1.setNom("VSAV");
+        typeVehicule1.setCaracteristique("véhicule de secours aux victimes");
+        
+        vehicule1.setTypeVehicule(typeVehicule1);
+        
+        System.out.println("Le véhicule n°" + vehicule1.getId() + " est un " + vehicule1.getImmat()+ ", existe depuis " + vehicule1.getDateOrigine() + " et doit faire une révision en " + vehicule1.getDateRevision() + ", son type de véhicule est "+ vehicule1.getTypeVehicule().getNom());
         
     }
+    }
     
-}
