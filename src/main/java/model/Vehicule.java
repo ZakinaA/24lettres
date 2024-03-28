@@ -16,15 +16,21 @@ public class Vehicule {
     private String immat;
     private LocalDate dateOrigine;
     private LocalDate dateRevision;
+    private TypeVehicule typeVehicule;
     
     public Vehicule() {  
     }
 
-    public Vehicule(int id, String immat, LocalDate dateOrigine, LocalDate dateRevision) {
+    public Vehicule(int id, String immat, LocalDate dateOrigine, LocalDate dateRevision, TypeVehicule typeVehicule) {
         this.id = id;
         this.immat = immat;
         this.dateOrigine = dateOrigine;
         this.dateRevision = dateRevision;
+    }
+    
+    public Vehicule (int id, String immat){
+        this.id = id;
+        this.immat = immat;
     }
 
     public int getId() {
@@ -59,4 +65,11 @@ public class Vehicule {
         return dateRevision;
     }
     
+     public TypeVehicule getTypeVehicule() {
+        return typeVehicule;
+    }
+    
+    public void setTypeVehicule(TypeVehicule typeVehicule) {
+        this.typeVehicule = typeVehicule;
+    }
 }
