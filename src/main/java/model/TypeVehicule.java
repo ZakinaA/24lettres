@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ts1sio
@@ -13,7 +15,7 @@ public class TypeVehicule {
     private int id;
     private String nom;
     private String caracteristique;
-    
+    private ArrayList<Vehicule> lesVehicules;
     public TypeVehicule() {  
     }
 
@@ -47,5 +49,19 @@ public class TypeVehicule {
         return caracteristique;
     }
 
+       public ArrayList<Vehicule> getLesVehicules() {
+        return lesVehicules;
+    }
+
+    public void setLesVehicules(ArrayList<Vehicule> lesVehicules) {
+        this.lesVehicules = lesVehicules;
+    }
     
-}
+    public void addUnVehicule(Vehicule unVehicule) {
+        if (lesVehicules == null) {
+            lesVehicules = new ArrayList<Vehicule>();
+        }
+        
+        lesVehicules.add(unVehicule);
+
+    }}
