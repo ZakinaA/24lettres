@@ -35,6 +35,9 @@ public class DaoCaserne {
                 Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("id"));
                     c.setNom(resultatRequete.getString("nom"));
+                    c.setRue(resultatRequete.getString("rue"));
+                    c.setCopos(resultatRequete.getString("copos"));
+                    c.setVille(resultatRequete.getString("ville"));
 
                 lesCasernes.add(c);
             }
@@ -42,7 +45,7 @@ public class DaoCaserne {
         }
         catch (SQLException e){
             e.printStackTrace();
-            System.out.println("La requête de getLesPompiers e généré une erreur");
+            System.out.println("La requête de getLesPompiers a généré une erreur");
         }
         return lesCasernes;
     }

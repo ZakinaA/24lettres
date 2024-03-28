@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.Caserne"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,13 +20,16 @@
     </head>
         <h1>Liste des casernes du Calvados</h1>
         <%
-                ArrayList<Pompier> lesPompiers = (ArrayList)request.getAttribute("pLesPompiers");
+                ArrayList<Caserne> lesCasernes = (ArrayList)request.getAttribute("pLesCasernes");
             %>
             <table>  
             <thead>
                 <tr>             
                     <th>id</th>
-                    <th>nom</th>                
+                    <th>nom</th>
+                    <th>rue</th>
+                    <th>copos</th>
+                    <th>ville</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +38,24 @@
                         for (Caserne c : lesCasernes)
                         {              
                             out.println("<tr><td>");
-                            out.println(p.getId());
+                            out.println(c.getId());
                             out.println("</a></td>");
 
-                            out.println("<td><a href ='../ServletCaserne/consulter?idCaserne="+ p.getId()+ "'>");
-                            out.println(p.getNom());
+                            out.println("<td><a href ='../ServletCaserne/consulter?idCaserne="+ c.getId()+ "'>");
+                            out.println(c.getNom());
                             out.println("</td>");;
+                            
+                            out.println("<td>");
+                            out.println(c.getRue());
+                            out.println("</td>");
+                            
+                            out.println("<td>");
+                            out.println(c.getCopos());
+                            out.println("</td>");
+                            
+                            out.println("<td>");
+                            out.println(c.getVille());
+                            out.println("</td>");
                                
                         }
                     %>
