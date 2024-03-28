@@ -9,8 +9,10 @@ package model;
  * @author mahdi.ashuri
  */
 public class Grade {
+    
     private int id;
     private String libelle;
+    private Surgrade surgrade;
     
         public int getId() {
         return id;
@@ -27,4 +29,13 @@ public class Grade {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+    
+    public Surgrade getSurgrade() {
+        return surgrade;
+    }
+    
+    public void setSurgrade(Surgrade surgrade) {
+        this.surgrade = surgrade;
+    }
+    
 }
