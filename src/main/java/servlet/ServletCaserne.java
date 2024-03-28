@@ -74,7 +74,7 @@ public class ServletCaserne extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     
      String url = request.getRequestURI();  
        
@@ -82,9 +82,9 @@ public class ServletCaserne extends HttpServlet {
         if(url.equals("/sdisweb/ServletCaserne/lister"))
         {              
             ArrayList<Caserne> lesCasernes = DaoCaserne.getLesCasernes(cnx);
-            request.setAttribute("pLesPompiers", lesCasernes);
+            request.setAttribute("pLesCasernes", lesCasernes);
             //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
-           getServletContext().getRequestDispatcher("/vues/pompier/listerPompiers.jsp").forward(request, response);
+           getServletContext().getRequestDispatcher("/vues/caserne/listerCasernes.jsp").forward(request, response);
         }
     }
     /**
