@@ -40,4 +40,11 @@ public class Surgrade {
         this.lesGrades = lesGrades;
     }
     
+    public void addUnGrade(Grade unGrade) {
+        if (lesGrades == null) {
+            lesGrades = new ArrayList<Grade>();
+        }
+        lesGrades.add(unGrade);
+    }
+    
 }
