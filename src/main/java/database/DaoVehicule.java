@@ -23,73 +23,72 @@ public class DaoVehicule {
     static PreparedStatement requeteSql = null;
     static ResultSet resultatRequete = null;
 
-    public static ArrayList<Vehicule> getLesVehicule(Connection cnx){
+    public static ArrayList<Vehicule> getLesVehicules(Connection cnx){
 
-        ArrayList<Vehicule> lesVehicules = new ArrayList<Vehicule>();
-        try{
-            requeteSql = cnx.prepareStatement("SELECT vehicule.id AS f_id, fonction.libelle AS f_libelle FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id;");
-            resultatRequete = requeteSql.executeQuery();
+    ArrayList<Vehicule> lesVehicules = new ArrayList<Vehicule>();
+    try{
+        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id;");
+        resultatRequete = requeteSql.executeQuery();
 
-            while (resultatRequete.next()){
+        while (resultatRequete.next()){
 
-                Vehicule v = new Vehicule();
-                    v.setId(resultatRequete.getInt("f_id"));
-                    v.setImmat(resultatRequete.getString("f_immat"));
+            Vehicule v = new Vehicule();
+            v.setId(resultatRequete.getInt("v_id"));
+            v.setImmat(resultatRequete.getString("v_immat"));
 
-                    Date sqlDateOrigine = rs.getDate("f_dateOrigine");
-                    v.setDateOrigine(sqlDateOrigine.toLocalDate());
+            Date sqlDateOrigine = resultatRequete.getDate("v_dateOrigine");
+            v.setDateOrigine(sqlDateOrigine.toLocalDate());
 
-                    Date sqlDateRevision = rs.getDate("f_dateRevision");
-                    v.setDateRevision(sqlDateRevision.toLocalDate());
+            Date sqlDateRevision = resultatRequete.getDate("v_dateRevision");
+            v.setDateRevision(sqlDateRevision.toLocalDate());
 
-
-                lesVehicules.add(v);
-            }
-
+            lesVehicules.add(v);
         }
-        catch (SQLException e){
-            e.printStackTrace();
-            System.out.println("La requête de getLesVehicules e généré une erreur");
-        }
-        return lesVehicules;
+
     }
-
-    public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
-
-        Vehicule v = null ;
-        try{
-            requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id where vehicule.id= ? ;");
-            requeteSql.setInt(1, idVehicule);
-            resultatRequete = requeteSql.executeQuery();
-
-            if (resultatRequete.next()){
-
-                    v = new Vehicule();
-                    v.setId(resultatRequete.getInt("v_id"));
-                    v.setImmat(resultatRequete.getString("v_immat"));
-
-                    Date sqlDateOrigine = rs.getDate("v_dateOrigine");
-                    v.setDateOrigine(sqlDateOrigine.toLocalDate());
-
-                    Date sqlDateRevision = rs.getDate("v_dateRevision");
-                    v.setDateRevision(sqlDateRevision.toLocalDate());
-            }
-
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-            System.out.println("La requête de getFonctionById  a généré une erreur");
-        }
-        return v ;
+    catch (SQLException e){
+        e.printStackTrace();
+        System.out.println("La requête de getLesVehicules a généré une erreur");
     }
+    return lesVehicules;
+}
 
+public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
 
-   public static Vehicule addVehicule(Connection connection, Vehicule v) {      
+    Vehicule v = null ;
+    try{
+        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id where vehicule.id= ? ;");
+        requeteSql.setInt(1, idVehicule);
+        resultatRequete = requeteSql.executeQuery();
+
+        if (resultatRequete.next()){
+
+            v = new Vehicule();
+            v.setId(resultatRequete.getInt("v_id"));
+            v.setImmat(resultatRequete.getString("v_immat"));
+
+            Date sqlDateOrigine = resultatRequete.getDate("v_dateOrigine");
+            v.setDateOrigine(sqlDateOrigine.toLocalDate());
+
+            Date sqlDateRevision = resultatRequete.getDate("v_dateRevision");
+            v.setDateRevision(sqlDateRevision.toLocalDate());
+        }
+
+    }
+    catch (SQLException e){
+        e.printStackTrace();
+        System.out.println("La requête de getFonctionById a généré une erreur");
+    }
+    return v ;
+}
+
+public static Vehicule addVehicule(Connection connection, Vehicule v) {
     int idGenere = -1;
     try {
-        requeteSql = connection.prepareStatement("INSERT INTO fonction (libelle) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
+        requeteSql = connection.prepareStatement("INSERT INTO vehicule (immat, dateOrigine, dateRevision) VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
         requeteSql.setString(1, v.getImmat());
-
+        requeteSql.setDate(2, Date.valueOf(v.getDateOrigine()));
+        requeteSql.setDate(3, Date.valueOf(v.getDateRevision()));
         /* Exécution de la requête */
         requeteSql.executeUpdate();
 
@@ -112,5 +111,4 @@ public class DaoVehicule {
     }
     return v;
 }
-
-    }
+}
