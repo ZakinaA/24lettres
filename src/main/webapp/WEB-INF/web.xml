@@ -5,19 +5,11 @@
         <listener-class>database.InitConnexion</listener-class>
     </listener>
     
+    <!-- ServletPompier -->
     <servlet>
         <servlet-name>ServletPompier</servlet-name>
         <servlet-class>servlet.ServletPompier</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletCaserne</servlet-name>
-        <servlet-class>servlet.ServletCaserne</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFonction</servlet-name>
-        <servlet-class>servlet.ServletFonction</servlet-class>
-    </servlet>
-    
     <servlet-mapping>
         <servlet-name>ServletPompier</servlet-name>
         <url-pattern>/ServletPompier/lister</url-pattern>
@@ -30,11 +22,22 @@
         <servlet-name>ServletPompier</servlet-name>
         <url-pattern>/ServletPompier/ajouter</url-pattern>
     </servlet-mapping>
+    
+    <!-- ServletCaserne -->
+    <servlet>
+        <servlet-name>ServletCaserne</servlet-name>
+        <servlet-class>servlet.ServletCaserne</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletCaserne</servlet-name>
         <url-pattern>/ServletCaserne/lister</url-pattern>
     </servlet-mapping>
-
+    
+    <!-- ServletFonction -->
+    <servlet>
+        <servlet-name>ServletFonction</servlet-name>
+        <servlet-class>servlet.ServletFonction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletFonction</servlet-name>
         <url-pattern>/ServletFonction/lister</url-pattern>
@@ -43,12 +46,28 @@
         <servlet-name>ServletFonction</servlet-name>
         <url-pattern>/ServletFonction/consulter</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ServletFonction</servlet-name>
         <url-pattern>/ServletFonction/ajouter</url-pattern>
     </servlet-mapping>
-
+    
+    <!-- ServletVehicule -->
+    <servlet>
+        <servlet-name>ServletVehicule</servlet-name>
+        <servlet-class>servlet.ServletVehicule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletVehicule</servlet-name>
+        <url-pattern>/ServletVehicule/lister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletVehicule</servlet-name>
+        <url-pattern>/ServletVehicule/consulter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletVehicule</servlet-name>
+        <url-pattern>/ServletVehicule/ajouter</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
