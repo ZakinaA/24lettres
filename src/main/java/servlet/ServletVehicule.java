@@ -107,10 +107,10 @@ public class ServletVehicule extends HttpServlet {
            
         }
         
-        if(url.equals("/sdisweb/ServletFonction/ajouter"))
+        if(url.equals("/sdisweb/ServletVehicule/ajouter"))
         {                   
             ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
-            request.setAttribute("vlesVehicules", lesVehicules);
+            request.setAttribute("vLesVehicules", lesVehicules);
             this.getServletContext().getRequestDispatcher("/vues/vehicule/ajouterVehicule.jsp" ).forward( request, response );
         }
         
