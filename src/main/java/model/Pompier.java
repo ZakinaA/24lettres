@@ -6,6 +6,9 @@ package model;
 
 import java.util.ArrayList;
 
+import java.time.LocalDate;
+
+
 /**
  *
  * @author zakina
@@ -13,9 +16,12 @@ import java.util.ArrayList;
 public class Pompier {
     
     private int id;
-    private String bip ;
+    private String bip;
     private String nom;
     private String prenom ;
+    private String sexe;
+    private int telephone;
+    private LocalDate dateNaissance;
     private Caserne uneCaserne ;
     private Grade unGrade ;
     private ArrayList<Fonction> lesFonctions ;
@@ -70,8 +76,32 @@ public class Pompier {
     public void setUnGrade(Grade unGrade) {
         this.unGrade = unGrade;
     }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public LocalDate getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setDateNaissance(LocalDate dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
     
-    public ArrayList<Fonction> getUneFonction() {
+    public ArrayList<Fonction> getLesFonctions() {
         return lesFonctions;
     }
     public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
