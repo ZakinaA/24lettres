@@ -13,6 +13,11 @@
         <servlet-name>ServletCaserne</servlet-name>
         <servlet-class>servlet.ServletCaserne</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletFonction</servlet-name>
+        <servlet-class>servlet.ServletFonction</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>ServletPompier</servlet-name>
         <url-pattern>/ServletPompier/lister</url-pattern>
@@ -29,7 +34,7 @@
         <servlet-name>ServletCaserne</servlet-name>
         <url-pattern>/ServletCaserne/lister</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>ServletFonction</servlet-name>
         <url-pattern>/ServletFonction/lister</url-pattern>
@@ -38,12 +43,12 @@
         <servlet-name>ServletFonction</servlet-name>
         <url-pattern>/ServletFonction/consulter</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>ServletFonction</servlet-name>
         <url-pattern>/ServletFonction/ajouter</url-pattern>
     </servlet-mapping>
-    
+
     <session-config>
         <session-timeout>
             30
