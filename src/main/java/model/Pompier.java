@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author zakina
@@ -15,6 +17,8 @@ public class Pompier {
     private String nom;
     private String prenom ;
     private Caserne uneCaserne ;
+    private Grade unGrade ;
+    private ArrayList<Fonction> lesFonctions ;
 
     public Pompier() {
     }
@@ -59,6 +63,25 @@ public class Pompier {
         this.uneCaserne = uneCaserne;
     }
     
+    public Grade getUnGrade() {
+        return unGrade;
+    }
+
+    public void setUnGrade(Grade unGrade) {
+        this.unGrade = unGrade;
+    }
     
+    public ArrayList<Fonction> getUneFonction() {
+        return lesFonctions;
+    }
+    public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
+        this.lesFonctions = lesFonctions;
+    }
     
+    public void addPompier(Fonction f){
+        if (lesFonctions == null){
+            lesFonctions = new ArrayList<Fonction>();
+        }
+        lesFonctions.add(f);
+    }
 }
