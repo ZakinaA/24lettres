@@ -4,6 +4,7 @@
  */
 package servlet;
 
+import database.DaoTypeVehicule;
 import database.DaoVehicule;
 import form.FormFonction;
 import form.FormVehicule;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
+import model.TypeVehicule;
 import model.Vehicule;
 
 /**
@@ -82,8 +84,13 @@ public class ServletVehicule extends HttpServlet {
         {              
             ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
             request.setAttribute("vLesVehicules", lesVehicules);
-            //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
-           getServletContext().getRequestDispatcher("/vues/vehicule/listerVehicule.jsp").forward(request, response);
+           
+            ArrayList<TypeVehicule> lesTypesVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
+            request.setAttribute("lesTypesVehicules", lesTypesVehicules);
+
+
+       //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
+            getServletContext().getRequestDispatcher("/vues/vehicule/listerVehicule.jsp").forward(request, response);
         }
         
          // Récup et affichage des clients interessés par une certaine catégorie de ventes
