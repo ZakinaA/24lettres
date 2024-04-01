@@ -36,6 +36,12 @@ public class Pompier {
     public void setId(int id) {
         this.id = id;
     }
+    public Pompier(int id, String nom, String prenom, Caserne uneCaserne){
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.uneCaserne = uneCaserne;
+    }
 
     public String getBip() {
         return bip;
