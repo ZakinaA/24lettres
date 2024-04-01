@@ -83,7 +83,7 @@ public class ServletPompier extends HttpServlet {
         {              
             ArrayList<Pompier> lesPompiers = DaoPompier.getLesPompiers(cnx);
             request.setAttribute("pLesPompiers", lesPompiers);
-            //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
+            System.out.println("lister eleves - nombres d'élèves récupérés" + lesPompiers.size() );
            getServletContext().getRequestDispatcher("/vues/pompier/listerPompiers.jsp").forward(request, response);
         }
         
