@@ -28,7 +28,7 @@ public class DaoPompier {
         
         ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
         try{
-            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id INNER JOIN grade ON pompier.grade_id = grade.id;");
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom, caserne.id AS c_id, caserne.nom AS c_nom FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id;");
             resultatRequete = requeteSql.executeQuery();
             
             while (resultatRequete.next()){
@@ -36,21 +36,12 @@ public class DaoPompier {
                 Pompier p = new Pompier();
                     p.setId(resultatRequete.getInt("p_id"));
                     p.setNom(resultatRequete.getString("p_nom"));
-                    p.setSexe(resultatRequete.getString("p_sexe"));
-                    p.setTelephone(resultatRequete.getInt("p_telephone"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
-                    p.setBip(resultatRequete.getString("p_numeroBip"));
-                    
-                    Date sqlDateNaissance = resultatRequete.getDate("p_dateNaissance");
-                    p.setDateNaissance(sqlDateNaissance.toLocalDate());
                     
                     Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
                     c.setNom(resultatRequete.getString("c_nom"));
                     
-                    Grade g = new Grade();
-                    g.setId(resultatRequete.getInt("g_id"));
-                    g.setLibelle(resultatRequete.getString("g_libelle"));
                 
                 p.setUneCaserne(c);
                 
@@ -69,7 +60,7 @@ public class DaoPompier {
         
         Pompier p = null ;
         try{
-            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id INNER JOIN grade ON pompier.grade_id = grade.id where pompier.id= ? ");
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle, pompier.numeroBip AS p_numeroBip FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id INNER JOIN grade ON pompier.grade_id = grade.id where pompier.id= ?; ");
             requeteSql.setInt(1, idPompier);
             resultatRequete = requeteSql.executeQuery();
             
