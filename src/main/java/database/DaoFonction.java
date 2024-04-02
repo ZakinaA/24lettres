@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Fonction;
-import model.Pompier;
 
 /**
  *
@@ -52,7 +51,7 @@ public class DaoFonction {
         
         Fonction f = null ;
         try{
-            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id; where fonction.id= ? ");
+            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id where fonction.id= ? ");
             requeteSql.setInt(1, idFonction);
             resultatRequete = requeteSql.executeQuery();
             
