@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Pompier"%>
+<%@page import="model.Fonction"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,6 +43,11 @@
                    </div>
                    <div class="pompierInfo">
                    <label>Fonction :</label>
+                   <ul>
+                       <%for (Fonction fonction : p.getLesFonctions()) {%>
+                       <li><%= fonction.getLibelle() %> </li>
+                       <% } %>
+                   </ul>
                 </div>
                </div>
            </main>
