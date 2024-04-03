@@ -40,7 +40,7 @@
                             out.println(f.getId());
                             out.println("</a></td>");
 
-                            out.println("<td>");
+                            out.println("<td><a href ='../ServletFonction/consulter?idFonction="+ f.getId()+ "'>");
                             out.println(f.getLibelle());
                             out.println("</td>");
     
