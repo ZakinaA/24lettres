@@ -1,9 +1,3 @@
-<%-- 
-    Document   : lister_pompiers.jsp
-    Created on : 15 mars 2024, 16:50:49
-    Author     : zakina
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Pompier"%>
 <%@page import="model.Caserne"%>
