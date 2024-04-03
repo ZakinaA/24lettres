@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Fonction;
+import model.Pompier;
 
 /**
  *
@@ -51,7 +52,7 @@ public class DaoFonction {
         
         Fonction f = null ;
         try{
-            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id where fonction.id= ? ");
+            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle, pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id where fonction.id= ? ");
             requeteSql.setInt(1, idFonction);
             resultatRequete = requeteSql.executeQuery();
             
@@ -60,6 +61,7 @@ public class DaoFonction {
                     f = new Fonction();
                     f.setId(resultatRequete.getInt("f_id"));
                     f.setLibelle(resultatRequete.getString("f_libelle"));
+                 
              
             }
            
@@ -71,6 +73,34 @@ public class DaoFonction {
         return f ;
     }
     
+    public static ArrayList<Pompier> getLesPompiersByFonction(Connection cnx, int idFonction){
+        
+        ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
+        Pompier p = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement ("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom FROM pompier INNER JOIN pompier_fonction ON pompier.id = pompier_fonction.pompier_id WHERE pompier_fonction.fonction_id = ?;");
+            requeteSql.setInt(1, idFonction);
+            resultatRequete = requeteSql.executeQuery();
+        
+        if (resultatRequete.next()){
+            
+            p = new Pompier();
+            p.setId(resultatRequete.getInt("p_id"));
+            p.setNom(resultatRequete.getString("p_nom"));
+            p.setPrenom(resultatRequete.getString("p_prenom"));
+            
+            lesPompiers.add(p);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getFonctionById  a généré une erreur");
+        }
+        return lesPompiers;
+    }
     
     public static Fonction addFonction(Connection connection, Fonction f){      
         int idGenere = -1;
