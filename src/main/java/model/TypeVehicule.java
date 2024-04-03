@@ -16,9 +16,13 @@ public class TypeVehicule {
     private String nom;
     private String caracteristique;
     private ArrayList<Vehicule> lesVehicules;
+    
     public TypeVehicule() {  
     }
 
+    public TypeVehicule(int id){
+        this.id = id;
+    }
     public TypeVehicule(int id, String nom, String caracteristique) {
         this.id = id;
         this.nom = nom;
