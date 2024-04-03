@@ -93,8 +93,8 @@ public class ServletFonction extends HttpServlet {
             // Il est donc nécessaire de caster le paramètre idPompier en int
             int idFonction = Integer.parseInt((String)request.getParameter("idFonction"));
             System.out.println( "pompier à afficher = " + idFonction);
-            ArrayList<Pompier> pf= DaoFonction.getLesPompiersByFonction(cnx, idFonction);
-            request.setAttribute("pfPompier", pf);
+            ArrayList<Pompier> lesPompiers = DaoFonction.getLesPompiersByFonction(cnx, idFonction);
+            request.setAttribute("lesPompiers", lesPompiers);
             getServletContext().getRequestDispatcher("/vues/fonction/consulterFonction.jsp").forward(request, response);       
            
            
