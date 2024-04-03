@@ -5,11 +5,13 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Caserne;
+import model.Grade;
 import model.Pompier;
 
 /**
@@ -26,9 +28,7 @@ public class DaoPompier {
         
         ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
         try{
-            requeteSql = cnx.prepareStatement("select pompier.id as p_id, pompier.nom as p_nom, pompier.prenom as p_prenom, c.id as c_id, c.nom as c_nom " +
-                         " from pompier inner join caserne c " +
-                         " on pompier.caserne_id = c.id ");
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom, caserne.id AS c_id, caserne.nom AS c_nom FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id;");
             resultatRequete = requeteSql.executeQuery();
             
             while (resultatRequete.next()){
@@ -37,9 +37,11 @@ public class DaoPompier {
                     p.setId(resultatRequete.getInt("p_id"));
                     p.setNom(resultatRequete.getString("p_nom"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
-                Caserne c = new Caserne();
+                    
+                    Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
                     c.setNom(resultatRequete.getString("c_nom"));
+                    
                 
                 p.setUneCaserne(c);
                 
@@ -58,10 +60,7 @@ public class DaoPompier {
         
         Pompier p = null ;
         try{
-            requeteSql = cnx.prepareStatement("select pompier.id as p_id, pompier.nom as p_nom, pompier.prenom as p_prenom, c.id as c_id, c.nom as c_nom " +
-                         " from pompier inner join caserne c " +
-                         " on pompier.caserne_id = c.id "+
-                         " where pompier.id= ? ");
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle, pompier.numeroBip AS p_numeroBip FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id INNER JOIN grade ON pompier.grade_id = grade.id where pompier.id= ?; ");
             requeteSql.setInt(1, idPompier);
             resultatRequete = requeteSql.executeQuery();
             
@@ -71,11 +70,24 @@ public class DaoPompier {
                     p.setId(resultatRequete.getInt("p_id"));
                     p.setNom(resultatRequete.getString("p_nom"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
-                Caserne c = new Caserne();
+                    p.setSexe(resultatRequete.getString("p_sexe"));
+                    p.setTelephone(resultatRequete.getInt("p_telephone"));
+                    p.setPrenom(resultatRequete.getString("p_prenom"));
+                    p.setBip(resultatRequete.getString("p_numeroBip"));
+                    
+                    Date sqlDateNaissance = resultatRequete.getDate("p_dateNaissance");
+                    p.setDateNaissance(sqlDateNaissance.toLocalDate());
+                    
+                    Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
                     c.setNom(resultatRequete.getString("c_nom"));
+                    p.setUneCaserne(c);
+                    
+                    Grade g = new Grade();
+                    g.setId(resultatRequete.getInt("g_id"));
+                    g.setLibelle(resultatRequete.getString("g_libelle"));
+                    p.setUnGrade(g);
                 
-                p.setUneCaserne(c);
                 
                 
             }
@@ -97,11 +109,17 @@ public class DaoPompier {
             // id (clé primaire de la table client) est en auto_increment,donc on ne renseigne pas cette valeur
             // la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
             // supprimer ce paramètre en cas de requête sans auto_increment.
-            requeteSql=connection.prepareStatement("INSERT INTO pompier ( nom, prenom, caserne_id)\n" +
-                    "VALUES (?,?,?)", requeteSql.RETURN_GENERATED_KEYS );
+            requeteSql=connection.prepareStatement("INSERT INTO pompier ( nom, sexe, telephone, caserne_id, dateNaissance, prenom, grade_id, numeroBip)\n" +
+                    "VALUES (?,?,?,?,?,?,?,?)", requeteSql.RETURN_GENERATED_KEYS );
             requeteSql.setString(1, p.getNom());
-            requeteSql.setString(2, p.getPrenom());
-            requeteSql.setInt(3, p.getUneCaserne().getId());
+            requeteSql.setString(2, p.getSexe());
+            requeteSql.setInt(3, p.getTelephone());
+            requeteSql.setInt(4, p.getUneCaserne().getId());
+            requeteSql.setDate(5, Date.valueOf(p.getDateNaissance()));
+            requeteSql.setString(6, p.getPrenom());
+            requeteSql.setInt(7, p.getUnGrade().getId());
+            requeteSql.setString(8, p.getBip());
+            
 
            /* Exécution de la requête */
             requeteSql.executeUpdate();

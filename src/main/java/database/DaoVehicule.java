@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.TypeVehicule;
 import model.Vehicule;
 
 /**
@@ -27,7 +28,7 @@ public class DaoVehicule {
 
     ArrayList<Vehicule> lesVehicules = new ArrayList<Vehicule>();
     try{
-        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id;");
+        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision, type_vehicule.nom AS vt_nom FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id;");
         resultatRequete = requeteSql.executeQuery();
 
         while (resultatRequete.next()){
@@ -42,6 +43,10 @@ public class DaoVehicule {
             Date sqlDateRevision = resultatRequete.getDate("v_dateRevision");
             v.setDateRevision(sqlDateRevision.toLocalDate());
 
+            
+            TypeVehicule type = new TypeVehicule();
+            type.setNom(resultatRequete.getString("vt_nom"));
+            v.setTypeVehicule(type);
             lesVehicules.add(v);
         }
 
@@ -57,7 +62,7 @@ public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
 
     Vehicule v = null ;
     try{
-        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id where vehicule.id= ? ;");
+        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision, vehicule_type.nom AS vt_nom FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id where vehicule.id= ? ;");
         requeteSql.setInt(1, idVehicule);
         resultatRequete = requeteSql.executeQuery();
 
@@ -72,6 +77,11 @@ public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
 
             Date sqlDateRevision = resultatRequete.getDate("v_dateRevision");
             v.setDateRevision(sqlDateRevision.toLocalDate());
+            
+            TypeVehicule type = new TypeVehicule();
+            type.setNom(resultatRequete.getString("vt_nom"));
+            v.setTypeVehicule(type);
+          
         }
 
     }
@@ -89,25 +99,17 @@ public static Vehicule addVehicule(Connection connection, Vehicule v) {
         requeteSql.setString(1, v.getImmat());
         requeteSql.setDate(2, Date.valueOf(v.getDateOrigine()));
         requeteSql.setDate(3, Date.valueOf(v.getDateRevision()));
-        /* Exécution de la requête */
         requeteSql.executeUpdate();
 
-        // Récupération de l'ID auto-généré par la base de données
         resultatRequete = requeteSql.getGeneratedKeys();
         if (resultatRequete.next()) {
             idGenere = resultatRequete.getInt(1);
-            // Définir l'ID généré dans l'objet Fonction
             v.setId(idGenere);
         } else {
-            // Gérer le cas où aucun ID généré n'a été trouvé
-            // Cela peut indiquer une erreur dans l'insertion
-            // Vous pouvez logguer un message d'erreur ou lever une exception
             System.err.println("Aucun ID généré trouvé après l'insertion de la fonction");
         }
     } catch (SQLException e) {
         e.printStackTrace();
-        // Gérer l'exception SQLException comme approprié
-        // Vous pouvez logguer un message d'erreur ou lever une exception
     }
     return v;
 }

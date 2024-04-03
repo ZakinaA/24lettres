@@ -8,7 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Vehicule"%>
 <%@page import="model.TypeVehicule"%>
-<%@page import="form.FormVehicule"%>
+<%@page import="form.FormTypeVehicule"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,41 +20,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>APPLICATION DE GESTION SDIS CALVADOS</title>
     </head>
-        <h1>Lister les fonctions</h1>
+        <h1>Lister les types de véhicule :</h1>
         <%
-                ArrayList<Vehicule> lesVehicules = (ArrayList)request.getAttribute("vLesVehicules");
+                ArrayList<TypeVehicule> lesTypeVehicules = (ArrayList)request.getAttribute("tLesTypeVehicules");
             %>
             <div class="cadre2">
     <table class="centrer">
     <thead>
         <tr>
-            <th>Immatriculation :</th>
-            <th>Date d'origine :</th>
-            <th>Date de révision :</th>
-            <th>Type de véhicule</th>
+            <th>Nom :</th>
+            <th>Caractéristique :</th>
         </tr>
     </thead>
 
     <tbody>
                 <tr>
                     <%
-                        for (Vehicule v : lesVehicules)
+                        for (TypeVehicule t : lesTypeVehicules)
                         {              
                             out.println("<tr><td>");
-                            out.println(v.getImmat());
+                            out.println(t.getNom());
                             out.println("</a></td>");
                             
                             out.println("<td>");
-                            out.println(v.getDateOrigine());
+                            out.println(t.getCaracteristique());
                             out.println("</td>");
-                            
-                            out.println("<td>");
-                            out.println(v.getDateRevision());
-                            out.println("</td>");;
-                            
-                            out.println("<td>");
-                            out.println(v.getTypeVehicule().getNom());
-                            out.println("</td>");;
                                
                         }
                     %>

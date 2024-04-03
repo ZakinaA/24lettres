@@ -4,6 +4,11 @@
  */
 package model;
 
+import java.util.ArrayList;
+
+import java.time.LocalDate;
+
+
 /**
  *
  * @author zakina
@@ -11,10 +16,15 @@ package model;
 public class Pompier {
     
     private int id;
-    private String bip ;
+    private String bip;
     private String nom;
     private String prenom ;
+    private String sexe;
+    private int telephone;
+    private LocalDate dateNaissance;
     private Caserne uneCaserne ;
+    private Grade unGrade ;
+    private ArrayList<Fonction> lesFonctions ;
 
     public Pompier() {
     }
@@ -25,6 +35,12 @@ public class Pompier {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public Pompier(int id, String nom, String prenom, Caserne uneCaserne){
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.uneCaserne = uneCaserne;
     }
 
     public String getBip() {
@@ -59,6 +75,49 @@ public class Pompier {
         this.uneCaserne = uneCaserne;
     }
     
+    public Grade getUnGrade() {
+        return unGrade;
+    }
+
+    public void setUnGrade(Grade unGrade) {
+        this.unGrade = unGrade;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public LocalDate getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setDateNaissance(LocalDate dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
     
+    public ArrayList<Fonction> getLesFonctions() {
+        return lesFonctions;
+    }
+    public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
+        this.lesFonctions = lesFonctions;
+    }
     
+    public void addPompier(Fonction f){
+        if (lesFonctions == null){
+            lesFonctions = new ArrayList<Fonction>();
+        }
+        lesFonctions.add(f);
+    }
 }

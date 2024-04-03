@@ -5,9 +5,7 @@
 package servlet;
 
 import database.DaoTypeVehicule;
-import database.DaoVehicule;
-import form.FormFonction;
-import form.FormVehicule;
+import form.FormTypeVehicule;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,13 +16,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.TypeVehicule;
-import model.Vehicule;
 
 /**
  *
  * @author zakina
  */
-public class ServletVehicule extends HttpServlet {
+public class ServletTypeVehicule extends HttpServlet {
 
      Connection cnx ;
             
@@ -55,10 +52,10 @@ public class ServletVehicule extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletVehicule</title>");            
+            out.println("<title>Servlet ServletTypeVehicule</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletVehicule at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServletTypeVehicule at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,51 +70,26 @@ public class ServletVehicule extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-         String url = request.getRequestURI();  
-       
-        // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletVehicule/lister"))
-        {              
-            ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
-            request.setAttribute("vLesVehicules", lesVehicules);
-           
-            ArrayList<TypeVehicule> lesTypesVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
-            request.setAttribute("lesTypesVehicules", lesTypesVehicules);
-
-
-       //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
-            getServletContext().getRequestDispatcher("/vues/vehicule/listerVehicule.jsp").forward(request, response);
+   @Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    
+    String url = request.getRequestURI();  
+    
+    // Récup et affichage les types de véhicules 
+    if(url.equals("/sdisweb/ServletTypeVehicule/lister"))
+    {              
+        ArrayList<TypeVehicule> lesTypeVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
+        if (lesTypeVehicules == null) {
+            // Si la liste est nulle, initialiser avec une liste vide
+            lesTypeVehicules = new ArrayList<>();
         }
+        request.setAttribute("tLesTypeVehicules", lesTypeVehicules);
         
-         // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletVehicule/consulter"))
-        {  
-            // tout paramètre récupéré de la request Http est de type String
-            // Il est donc nécessaire de caster le paramètre idPompier en int
-            int idVehicule = Integer.parseInt((String)request.getParameter("idVehicule"));
-            System.out.println( "vehicule à afficher = " + idVehicule);
-            Vehicule f= DaoVehicule.getVehiculeById(cnx, idVehicule);
-            request.setAttribute("vVehicule", f);
-            getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);       
-           
-           
-        }
-        
-        if(url.equals("/sdisweb/ServletVehicule/ajouter"))
-        {                   
-            ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
-            request.setAttribute("vLesVehicules", lesVehicules);
-            this.getServletContext().getRequestDispatcher("/vues/vehicule/ajouterVehicule.jsp" ).forward( request, response );
-        }
-        
-        
-        
-        
+        getServletContext().getRequestDispatcher("/vues/type_vehicule/listerTypeVehicule.jsp").forward(request, response);
     }
+    
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -131,20 +103,20 @@ public class ServletVehicule extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         FormVehicule form = new FormVehicule();
+         FormTypeVehicule form = new FormTypeVehicule();
 		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        Vehicule v = form.ajouterVehicule(request);
+        TypeVehicule t = form.ajouterTypeVehicule(request);
         
         /* Stockage du formulaire et de l'objet dans l'objet request */
         request.setAttribute( "form", form );
-        request.setAttribute( "vVehicule", v );
+        request.setAttribute( "tTypeVehicule", t );
 		
         if (form.getErreurs().isEmpty()){
-            Vehicule vehiculeInsere =  DaoVehicule.addVehicule(cnx, v);
-            if (vehiculeInsere != null ){
-                request.setAttribute( "vVehicule", vehiculeInsere );
-                this.getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp" ).forward( request, response );
+            TypeVehicule typeVehiculeInsere =  DaoTypeVehicule.addTypeVehicule(cnx, t);
+            if (typeVehiculeInsere != null ){
+                request.setAttribute( "tTypeVehicule", typeVehiculeInsere );
+                this.getServletContext().getRequestDispatcher("/vues/type_vehicule/consulterTypeVehicule.jsp" ).forward( request, response );
             }
             else 
             {

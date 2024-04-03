@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Fonction;
+import model.Pompier;
 
 /**
  *
@@ -91,9 +92,9 @@ public class ServletFonction extends HttpServlet {
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idPompier en int
             int idFonction = Integer.parseInt((String)request.getParameter("idFonction"));
-            System.out.println( "fonction à afficher = " + idFonction);
-            Fonction f= DaoFonction.getFonctionById(cnx, idFonction);
-            request.setAttribute("fFonction", f);
+            System.out.println( "pompier à afficher = " + idFonction);
+            ArrayList<Pompier> lesPompiers = DaoFonction.getLesPompiersByFonction(cnx, idFonction);
+            request.setAttribute("lesPompiers", lesPompiers);
             getServletContext().getRequestDispatcher("/vues/fonction/consulterFonction.jsp").forward(request, response);       
            
            

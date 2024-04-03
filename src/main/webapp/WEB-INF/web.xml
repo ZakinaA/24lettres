@@ -68,6 +68,16 @@
         <servlet-name>ServletVehicule</servlet-name>
         <url-pattern>/ServletVehicule/ajouter</url-pattern>
     </servlet-mapping>
+    
+    <!-- ServletTypeVehicule -->
+    <servlet>
+        <servlet-name>ServletTypeVehicule</servlet-name>
+        <servlet-class>servlet.ServletTypeVehicule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletTypeVehicule</servlet-name>
+        <url-pattern>/ServletTypeVehicule/lister</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
