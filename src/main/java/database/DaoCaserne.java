@@ -17,6 +17,7 @@ import model.Caserne;
  *
  * @author zakina
  */
+
 public class DaoCaserne {
     
     Connection cnx;
@@ -44,10 +45,35 @@ public class DaoCaserne {
            
         }
         catch (SQLException e){
-            e.printStackTrace();
             System.out.println("La requête de getLesPompiers a généré une erreur");
         }
         return lesCasernes;
     }
     
+public static Caserne getCaserneById(Connection cnx, int idCaserne){
+
+    Caserne c = null ;
+    try{
+        requeteSql = cnx.prepareStatement("SELECT\n" + " caserne.id AS c_id,\n" + " caserne.nom AS c_nom,\n" + " caserne.rue AS c_rue,\n" + " caserne.copos AS c_copos,\n" + " caserne.ville AS c_ville\n" + "FROM\n" + " caserne\n" + "WHERE\n" + " caserne.id = ?;");
+        requeteSql.setInt(1, idCaserne);
+        resultatRequete = requeteSql.executeQuery();
+
+        if (resultatRequete.next()){
+
+            c = new Caserne();
+            c.setId(resultatRequete.getInt("c_id"));
+            c.setNom(resultatRequete.getString("c_nom"));
+            c.setRue(resultatRequete.getString("c_rue"));
+            c.setCopos(resultatRequete.getString("c_copos"));
+            c.setVille(resultatRequete.getString("c_ville"));
+            
+        }
+
+    }
+    catch (SQLException e){
+        System.out.println("La requête de getCaserneById a généré une erreur");
+    }
+    return c ;
+}
+
 }

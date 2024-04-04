@@ -82,6 +82,16 @@ public class ServletGrade extends HttpServlet {
             request.setAttribute("pLesGrades", lesGrades);
             getServletContext().getRequestDispatcher("/vues/grade/listerGrade.jsp").forward(request, response);
         }
+        
+        if(url.equals("/sdisweb/ServletGrade/consulter"))
+        {  
+            int idGrade = Integer.parseInt((String)request.getParameter("idGrade"));
+            System.out.println( "Grade à afficher = " + idGrade);
+            Grade g = DaoGrade.getGradeById(cnx, idGrade);
+            request.setAttribute("pGrade", g);
+            getServletContext().getRequestDispatcher("/vues/grade/consulterGrade.jsp").forward(request, response);       
+        }
+
     }
 
     /**

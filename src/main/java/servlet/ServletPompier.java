@@ -107,6 +107,7 @@ public class ServletPompier extends HttpServlet {
         {                   
             ArrayList<Caserne> lesCasernes = DaoCaserne.getLesCasernes(cnx);
             request.setAttribute("pLesCasernes", lesCasernes);
+
             
             ArrayList<Grade> lesGrades = DaoGrade.getLesGrades(cnx);
             request.setAttribute("pLesGrades", lesGrades);
@@ -166,13 +167,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
         this.getServletContext().getRequestDispatcher("/vues/pompier/ajouterPompier.jsp" ).forward( request, response );
     }
-}
 
-        
-        
-        
-        
-      
+}
 
     /**
      * Returns a short description of the servlet.
@@ -185,3 +181,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     }// </editor-fold>
 
 }
+ 
+
+
