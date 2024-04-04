@@ -14,7 +14,7 @@ public class Fonction {
     
     private int id;
     private String libelle ;
-    private ArrayList<Fonction> lesFonctions ;
+    private ArrayList<Pompier> lesPompiers ;
 
     public Fonction() {
     }
@@ -40,19 +40,19 @@ public class Fonction {
         this.libelle = libelle;
     }
 
-    public ArrayList<Fonction> getLesFonction() {
-        return lesFonctions;
+    public ArrayList<Pompier> getLesPompiers() {
+        return lesPompiers;
     }
 
-    public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
-        this.lesFonctions = lesFonctions;
+    public void setLesPompiers(ArrayList<Pompier> lesPompiers) {
+        this.lesPompiers = lesPompiers;
     }
     
-    public void addFonction(Fonction f){
-        if (lesFonctions == null){
-            lesFonctions = new ArrayList<Fonction>();
+    public void addPompier(Pompier p){
+        if (lesPompiers == null){
+            lesPompiers = new ArrayList<Pompier>();
         }
-        lesFonctions.add(f);
+        lesPompiers.add(p);
     }
     
 }
