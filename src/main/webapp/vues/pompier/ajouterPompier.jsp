@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Caserne"%>
+<%@page import="model.Grade"%>
 <%@page import="form.FormPompier"%>
 <!DOCTYPE html>
 <html>
@@ -26,14 +27,17 @@
                 <input id="nom" type="text" name="nom"  size="30" maxlength="30">
                 </br>
                 
-                <label for="prenom">PRENOM : </label>
-                <input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
-                 </br>
-               
+                <label for="sexe">SEXE : </label>
+                <input id="sexe"  type="text"  name="sexe" size="30" maxlength="30">      
+                </br>
                 
-                <%-- Champ Liste des caserbes --%>
+                <label for="telephone">TELEPHONE : </label>
+                <input id="telephone"  type="text"  name="telephone" size="30" maxlength="30">      
+                </br>
+                
+                 <%-- Champ Liste des casernes --%>
                 <label for="caserne">Caserne : </label>
-                <select name="idPompier">
+                <select name="idCaserne">
                     <%
                         ArrayList<Caserne> lesCasernes= (ArrayList)request.getAttribute("pLesCasernes");
                         for (int i=0; i<lesCasernes.size();i++){
@@ -42,8 +46,33 @@
                         }
                     %>
                 </select>
-                </br>            
-                               
+                
+                </br>  
+                <label for="dateNaiss">Date de naissance : </label>
+                <input id="dateNaiss"  type="date"  name="dateNaiss" size="30" maxlength="30">      
+                </br>
+                
+                <label for="prenom">PRENOM : </label>
+                <input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
+                </br>
+                 
+                <%-- Champ Liste des grades --%>
+                <label for="grade">Grade : </label>
+        <select name="idGrade"> 
+            <%
+                ArrayList<Grade> lesGrades = (ArrayList)request.getAttribute("pLesGrades");
+                for (int i = 0; i < lesGrades.size(); i++){
+                    Grade g = lesGrades.get(i);
+                    out.println("<option value='" + g.getId() + "'>" + g.getLibelle() + "</option>");
+                }
+                %>
+        </select>
+                </br>   
+                
+                <label for="numBip">NUMERO BIP : </label>
+                <input id="numBip"  type="text"  name="numBip" size="30" maxlength="30">      
+                </br>
+                        
             <input type="submit" name="valider" id="valider" value="Valider"/>
             </form>
         

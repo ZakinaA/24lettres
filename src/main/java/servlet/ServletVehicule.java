@@ -107,12 +107,17 @@ public class ServletVehicule extends HttpServlet {
            
         }
         
-        if(url.equals("/sdisweb/ServletVehicule/ajouter"))
-        {                   
+       if(url.equals("/sdisweb/ServletVehicule/ajouter")) {
             ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
             request.setAttribute("vLesVehicules", lesVehicules);
-            this.getServletContext().getRequestDispatcher("/vues/vehicule/ajouterVehicule.jsp" ).forward( request, response );
-        }
+    
+            ArrayList<TypeVehicule> lesTypesVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
+            request.setAttribute("vLesTypeVehicules", lesTypesVehicules);
+
+    
+            this.getServletContext().getRequestDispatcher("/vues/vehicule/ajouterVehicule.jsp").forward(request, response);
+}
+
         
         
         
@@ -131,7 +136,7 @@ public class ServletVehicule extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         FormVehicule form = new FormVehicule();
+        FormVehicule form = new FormVehicule();
 		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
         Vehicule v = form.ajouterVehicule(request);

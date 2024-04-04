@@ -18,11 +18,15 @@ public class Grade {
     private ArrayList<Pompier> lesPompiers ;
     
     public Grade() {
-        
     }
     
     public Grade(int id) {
         this.id = id;
+    }
+    
+    public Grade(int id, String libelle) {
+        this.id = id;
+        this.libelle = libelle;
     }
     
     public int getId() {

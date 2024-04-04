@@ -20,8 +20,8 @@ public class Pompier {
     private String nom;
     private String prenom ;
     private String sexe;
-    private int telephone;
-    private LocalDate dateNaissance;
+    private String telephone;
+    private String dateNaissance;
     private Caserne uneCaserne ;
     private Grade unGrade ;
     private ArrayList<Fonction> lesFonctions ;
@@ -87,11 +87,11 @@ public class Pompier {
         return sexe;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public LocalDate getDateNaissance() {
+    public String getDateNaissance() {
         return dateNaissance;
     }
 
@@ -99,11 +99,11 @@ public class Pompier {
         this.sexe = sexe;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(String dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
     

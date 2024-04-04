@@ -20,7 +20,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>APPLICATION DE GESTION SDIS CALVADOS</title>
     </head>
-        <h1>Lister les fonctions</h1>
+        <h1>Lister les véhicules</h1>
         <%
                 ArrayList<Vehicule> lesVehicules = (ArrayList)request.getAttribute("vLesVehicules");
             %>
@@ -62,46 +62,5 @@
     </tbody>  
     </table>
 </div>
-<style>
-h2{
-    color:#333;
-    font-size:50px;
-    margin-bottom:10px;
-}
-        
-.centrer{
-    margin-left:auto;
-    margin-right:auto;
-}
-        
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
- 
-th, td{
-    border:1px solid #333;
-    padding:8px;
-    text-align:center;
-}
-
-th{
-    font-weight:bold;
-}
-        
-.cadre2{
-    background:white; 
-    padding:10px;
-    margin:2px auto; 
-    width:70%;
-}
-        
-.class{
-    padding-left:700px;
-}
-        
-
-</style>
     </body>
 </html>

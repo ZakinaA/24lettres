@@ -17,7 +17,7 @@ import model.Vehicule;
  */
 public class FormVehicule {
     
-     private String resultat;
+    private String resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
 
     public String getResultat() {
@@ -37,8 +37,8 @@ public class FormVehicule {
     }
     
     //méthode de validation du champ de saisie nom
-    private void validationNom( String nom ) throws Exception {
-        if ( nom != null && nom.length() < 3 ) {
+    private void validationImmat( String immat ) throws Exception {
+        if ( immat != null && immat.length() < 3 ) {
         throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
         }
     }
@@ -62,13 +62,13 @@ public class FormVehicule {
         Vehicule v  = new Vehicule();
          
         String immat = getDataForm( request, "immat" );
-        LocalDate dateOrigine = LocalDate.parse(getDataForm(request, "dateOrigine"));
-        LocalDate dateRevision = LocalDate.parse(getDataForm(request, "dateRevision"));
+        String dateOrigine = getDataForm(request, "dateOrigine");
+        String dateRevision = getDataForm(request, "dateRevision");
         int idVehicule = Integer.parseInt((String)getDataForm( request, "idVehicule" ));
        
       
         try {
-             validationNom( immat );
+             validationImmat( immat );
         } catch ( Exception e ) {
             setErreur( "immat", e.getMessage() );
         }

@@ -5,6 +5,7 @@
 package servlet;
 
 import database.DaoCaserne;
+import database.DaoGrade;
 import database.DaoPompier;
 import form.FormPompier;
 import jakarta.servlet.ServletContext;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Caserne;
+import model.Grade;
 import model.Pompier;
 
 /**
@@ -105,6 +107,11 @@ public class ServletPompier extends HttpServlet {
         {                   
             ArrayList<Caserne> lesCasernes = DaoCaserne.getLesCasernes(cnx);
             request.setAttribute("pLesCasernes", lesCasernes);
+
+            
+            ArrayList<Grade> lesGrades = DaoGrade.getLesGrades(cnx);
+            request.setAttribute("pLesGrades", lesGrades);
+            
             this.getServletContext().getRequestDispatcher("/vues/pompier/ajouterPompier.jsp" ).forward( request, response );
         }
         
@@ -122,44 +129,46 @@ public class ServletPompier extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-         FormPompier form = new FormPompier();
-		
-        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        Pompier p = form.ajouterPompier(request);
-        
-        /* Stockage du formulaire et de l'objet dans l'objet request */
-        request.setAttribute( "form", form );
-        request.setAttribute( "pPompier", p );
-		
-        if (form.getErreurs().isEmpty()){
-            Pompier pompierInsere =  DaoPompier.addPompier(cnx, p);
-            if (pompierInsere != null ){
-                request.setAttribute( "pPompier", pompierInsere );
-                this.getServletContext().getRequestDispatcher("/vues/pompier/consulterPompier.jsp" ).forward( request, response );
-            }
-            else 
-            {
-                // Cas oùl'insertion en bdd a échoué
-                //renvoyer vers une page d'erreur 
-            }
-           
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    
+    FormPompier form = new FormPompier();
+    
+    /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+    Pompier p = form.ajouterPompier(request);
+    
+    /* Stockage du formulaire et de l'objet dans l'objet request */
+    request.setAttribute( "form", form );
+    request.setAttribute( "pPompier", p );
+    
+    System.out.println("ERREUR FORM" + form.getErreurs().size());
+    
+    if (form.getErreurs().isEmpty()){
+        Pompier pompierInsere =  DaoPompier.addPompier(cnx, p);
+        if (pompierInsere != null ){
+            request.setAttribute( "pPompier", pompierInsere );
+            this.getServletContext().getRequestDispatcher("/vues/pompier/consulterPompier.jsp" ).forward( request, response );
         }
-        else
-        { 
-            // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
-            ArrayList<Caserne> lesCasernes = DaoCaserne.getLesCasernes(cnx);
-            request.setAttribute("pLesCasernes", lesCasernes);
-            this.getServletContext().getRequestDispatcher("/vues/pompier/ajouterPompier.jsp" ).forward( request, response );
+        else 
+        {
+            // Cas oùl'insertion en bdd a échoué
+            //renvoyer vers une page d'erreur 
         }
-        
-        
-        
-        
-        
+       
     }
+    else
+    { 
+        // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
+        ArrayList<Caserne> lesCasernes = DaoCaserne.getLesCasernes(cnx);
+        request.setAttribute("pLesCasernes", lesCasernes);
+        
+        ArrayList<Grade> lesGrades = DaoGrade.getLesGrades(cnx);
+        request.setAttribute("pLesGrades", lesGrades);
+
+        this.getServletContext().getRequestDispatcher("/vues/pompier/ajouterPompier.jsp" ).forward( request, response );
+    }
+
+}
 
     /**
      * Returns a short description of the servlet.
@@ -172,3 +181,6 @@ public class ServletPompier extends HttpServlet {
     }// </editor-fold>
 
 }
+ 
+
+

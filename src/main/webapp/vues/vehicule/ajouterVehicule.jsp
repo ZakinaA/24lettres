@@ -23,30 +23,30 @@
             %>
 
         <form class="form-inline" action="ajouter" method="POST">
-                <label for="nom">NOM : </label>
-                <input id="nom" type="text" name="nom"  size="30" maxlength="30">
+                <label for="immat">Immatriculation : </label>
+                <input id="immat" type="text" name="immat"  size="30" maxlength="30">
                 </br>
 
-                <label for="prenom">PRENOM : </label>
-                <input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
-                 </br>
-
-
-                <%-- Champ Liste des caserbes --%>
+                <label for="dateOrigine">Date d'origine : </label>
+                <input id="dateOrigine"  type="date"  name="dateOrigine" size="30" maxlength="30">      
+                </br>
+                
+                <label for="dateRevision">Date de révision : </label>
+                <input id="dateRevision"  type="date"  name="dateRevision" size="30" maxlength="30">      
+                </br>
+                
                 <label for="type_vehicule">Type de véhicule : </label>
                 <select name="idVehicule">
-                    <%
-                        ArrayList<TypeVehicule> lesTypeVehicules= (ArrayList)request.getAttribute("vLesTypeVehicules");
-                        for (int i=0; i<lesTypeVehicules.size();i++){
+                <% ArrayList<TypeVehicule> lesTypeVehicules = (ArrayList<TypeVehicule>) request.getAttribute("vLesTypeVehicules");
+                    if (lesTypeVehicules != null) {
+                        for (int i = 0; i < lesTypeVehicules.size(); i++) {
                             TypeVehicule t = lesTypeVehicules.get(i);
-                            out.println("<option value='" + t.getId()+"'>" + t.getNom()+"</option>" );
-                        }
-                    %>
-                </select>
-                </br>            
-
+                   %>
+                <option value='<%= t.getId() %>'><%= t.getNom() %></option>
+                <% } }%>
+        </select>
             <input type="submit" name="valider" id="valider" value="Valider"/>
-            </form>
+    </form>
 
 
 
