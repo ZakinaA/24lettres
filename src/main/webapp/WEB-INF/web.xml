@@ -32,6 +32,10 @@
         <servlet-name>ServletCaserne</servlet-name>
         <url-pattern>/ServletCaserne/lister</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>ServletCaserne</servlet-name>
+    	<url-pattern>/ServletCaserne/consulter</url-pattern>
+    </servlet-mapping>
     
     <!-- ServletFonction -->
     <servlet>
@@ -78,6 +82,7 @@
         <servlet-name>ServletTypeVehicule</servlet-name>
         <url-pattern>/ServletTypeVehicule/lister</url-pattern>
     </servlet-mapping>
+    
      <!-- ServletIntervention -->
     <servlet>
         <servlet-name>ServletIntervention</servlet-name>
@@ -87,6 +92,21 @@
         <servlet-name>ServletIntervention</servlet-name>
         <url-pattern>/ServletIntervention/lister</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletIntervention</servlet-name>
+        <url-pattern>/ServletIntervention/consulter</url-pattern>
+    </servlet-mapping>
+    
+     <!-- ServletGrade -->
+    <servlet>
+        <servlet-name>ServletGrade</servlet-name>
+        <servlet-class>servlet.ServletGrade</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletGrade</servlet-name>
+        <url-pattern>/ServletGrade/lister</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         
         
