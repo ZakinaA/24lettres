@@ -89,7 +89,7 @@ public class DaoGrade {
                 p.setPrenom(resultatRequete.getString("p_prenom"));
             
                 lesPompiers.add(p);
-            }
+        }
         }
         
         
