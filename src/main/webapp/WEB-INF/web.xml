@@ -87,9 +87,11 @@
         <servlet-name>ServletIntervention</servlet-name>
         <url-pattern>/ServletIntervention/lister</url-pattern>
     </servlet-mapping>
-    <session-config>
-        
-        
+    <servlet-mapping>
+        <servlet-name>ServletIntervention</servlet-name>
+        <url-pattern>/ServletIntervention/consulter</url-pattern>
+    </servlet-mapping> 
+    <session-config>       
         <session-timeout>
             30
         </session-timeout>
