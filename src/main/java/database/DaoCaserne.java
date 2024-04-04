@@ -71,20 +71,23 @@ public static Caserne getCaserneById(Connection cnx, int idCaserne){
             
         }
 
+        ArrayList<Pompier> lesPompiers = DaoCaserne.getPompiersByCaserneId(cnx, idCaserne);
+        c.setLesPompiers(lesPompiers);
+        
     }
     catch (SQLException e){
         System.out.println("La requête de getCaserneById a généré une erreur");
     }
     return c ;
 }
-     public static ArrayList<Pompier> getPompierByCaserneId(Connection cnx, int idPompier){
+     public static ArrayList<Pompier> getPompiersByCaserneId(Connection cnx, int idCaserne){
         
         ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
         Pompier p = null;
         
         try{
             requeteSql = cnx.prepareStatement ("SELECT id,nom FROM `pompier` WHERE caserne_id = ?;");
-            requeteSql.setInt(1, idPompier);
+            requeteSql.setInt(1, idCaserne);
             resultatRequete = requeteSql.executeQuery();
         
         while (resultatRequete.next()){
