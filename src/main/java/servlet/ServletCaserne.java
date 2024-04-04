@@ -86,6 +86,16 @@ public class ServletCaserne extends HttpServlet {
             //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
            getServletContext().getRequestDispatcher("/vues/caserne/listerCasernes.jsp").forward(request, response);
         }
+        if(url.equals("/sdisweb/ServletPompier/consulter"))
+        {  
+            // tout paramètre récupéré de la request Http est de type String
+            // Il est donc nécessaire de caster le paramètre idCaserne en int
+            int idCaserne = Integer.parseInt((String)request.getParameter("idCaserne"));
+            System.out.println( "Caserne à afficher = " + idCaserne);
+            Caserne c= DaoCaserne.getCaserneById(cnx, idCaserne);
+            request.setAttribute("cCaserne", c);
+            getServletContext().getRequestDispatcher("/vues/caserne/consulterCaserne.jsp").forward(request, response); 
+        }
     }
     /**
      * Handles the HTTP <code>POST</code> method.
