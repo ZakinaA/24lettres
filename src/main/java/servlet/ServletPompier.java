@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Caserne;
+import model.Grade;
 import model.Pompier;
 
 /**
@@ -105,6 +106,9 @@ public class ServletPompier extends HttpServlet {
         {                   
             ArrayList<Caserne> lesCasernes = DaoCaserne.getLesCasernes(cnx);
             request.setAttribute("pLesCasernes", lesCasernes);
+            
+           
+            
             this.getServletContext().getRequestDispatcher("/vues/pompier/ajouterPompier.jsp" ).forward( request, response );
         }
         
