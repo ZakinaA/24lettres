@@ -100,12 +100,16 @@ public class DaoPompier {
                     p.setNom(resultatRequete.getString("p_nom"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
                     p.setSexe(resultatRequete.getString("p_sexe"));
-                    p.setTelephone(resultatRequete.getInt("p_telephone"));
+                    p.setTelephone(resultatRequete.getString("p_telephone"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
                     p.setBip(resultatRequete.getString("p_numeroBip"));
                     
-                    Date sqlDateNaissance = resultatRequete.getDate("p_dateNaissance");
-                    p.setDateNaissance(sqlDateNaissance.toLocalDate());
+                    if (resultatRequete.getDate("p_dateNaissance") != null) {
+                        Date sqlDateNaissance = resultatRequete.getDate("p_dateNaissance");
+                        p.setDateNaissance(sqlDateNaissance.toLocalDate());
+                    } else {
+                        p.setDateNaissance(null);
+                    }
                     
                     Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
@@ -139,12 +143,20 @@ public class DaoPompier {
             // la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
             // supprimer ce paramètre en cas de requête sans auto_increment.
             requeteSql=connection.prepareStatement("INSERT INTO pompier ( nom, sexe, telephone, caserne_id, dateNaissance, prenom, grade_id, numeroBip)\n" +
-                    "VALUES (?,?,?,?,?,?,?,?)", requeteSql.RETURN_GENERATED_KEYS );
+                    " VALUES (?,?,?,?,?,?,?,?)", requeteSql.RETURN_GENERATED_KEYS );
             requeteSql.setString(1, p.getNom());
             requeteSql.setString(2, p.getSexe());
-            requeteSql.setInt(3, p.getTelephone());
+            requeteSql.setString(3, p.getTelephone());
             requeteSql.setInt(4, p.getUneCaserne().getId());
-            requeteSql.setDate(5, Date.valueOf(p.getDateNaissance()));
+           
+            if (p.getDateNaissance() != null){
+                requeteSql.setDate(5,Date.valueOf(p.getDateNaissance()));
+            }
+            else
+            {
+                requeteSql.setDate(5, null);
+            }    
+            
             requeteSql.setString(6, p.getPrenom());
             requeteSql.setInt(7, p.getUnGrade().getId());
             requeteSql.setString(8, p.getBip());

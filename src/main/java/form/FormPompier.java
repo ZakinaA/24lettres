@@ -5,9 +5,12 @@
 package form;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import model.Caserne;
+import model.Grade;
 import model.Pompier;
 
 /**
@@ -62,8 +65,22 @@ public class FormPompier {
          
         String nom = getDataForm( request, "nom" );
         String prenom = getDataForm( request, "prenom");
-        int idPompier = Integer.parseInt((String)getDataForm( request, "idPompier" ));
-       
+        String sexe = getDataForm( request, "sexe");
+        String telephone = getDataForm( request, "telephone");
+        
+        String dateNaissance = getDataForm(request, "dateNaissance");
+        LocalDate dateNaiss = null;
+    
+         if (dateNaissance != null && !dateNaissance.isEmpty()) { // Vérifier si la chaîne de date est non nulle et non vide
+        dateNaiss = LocalDate.parse(dateNaissance); // Parser la date seulement si la chaîne n'est pas vide
+        }
+
+         
+        String numeroBip = getDataForm( request, "numBip");
+        
+        int idCaserne = Integer.parseInt(getDataForm(request, "idCaserne"));
+        int idGrade = Integer.parseInt(getDataForm(request, "idGrade"));
+
       
         try {
              validationNom( nom );
@@ -80,9 +97,14 @@ public class FormPompier {
          
       
         p.setPrenom(prenom);
-
-        p.setUneCaserne(new Caserne(idPompier));
+        p.setSexe(sexe);
+        p.setTelephone(telephone);
+        p.setBip(numeroBip);
+        p.setDateNaissance(dateNaiss);
         
+        p.setUneCaserne(new Caserne(idCaserne));
+        
+        p.setUnGrade(new Grade(idGrade));
         return p ;
     }
     

@@ -37,13 +37,13 @@ public class DaoGrade {
         ArrayList<Grade> lesGrades = new ArrayList<Grade>();
         try{
             requeteSql = cnx.prepareStatement("SELECT grade.id AS g_id,"
-                    + "                         grade.libelle AS g_libelle,"
-                    + "                         grade.surgrade_id AS g_surgradeid,"
-                    + "                         surgrade.id AS s_id,"
-                    + "                         surgrade.libelle AS s_libelle"
-                    + "                         FROM grade"
-                    + "                         INNER JOIN surgrade"
-                    + "                         ON grade.surgrade_id = surgrade.id;");
+                    + " grade.libelle AS g_libelle,"
+                    + " grade.surgrade_id AS g_surgradeid,"
+                    + " surgrade.id AS s_id,"
+                    + " surgrade.libelle AS s_libelle"
+                    + " FROM grade"
+                    + " INNER JOIN surgrade"
+                    + " ON grade.surgrade_id = surgrade.id;");
             resultatRequete = requeteSql.executeQuery();
             
             while (resultatRequete.next()){

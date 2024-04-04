@@ -14,7 +14,19 @@ public class Grade {
     private String libelle;
     private Surgrade surgrade;
     
-        public int getId() {
+    public Grade() {
+    }
+     
+    public Grade(int id) {
+        this.id = id;
+    }
+    
+    public Grade(int id, String libelle) {
+        this.id = id;
+        this.libelle = libelle;
+    }
+    
+    public int getId() {
         return id;
     }
 

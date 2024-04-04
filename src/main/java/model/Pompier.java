@@ -20,7 +20,7 @@ public class Pompier {
     private String nom;
     private String prenom ;
     private String sexe;
-    private int telephone;
+    private String telephone;
     private LocalDate dateNaissance;
     private Caserne uneCaserne ;
     private Grade unGrade ;
@@ -87,7 +87,7 @@ public class Pompier {
         return sexe;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
@@ -99,7 +99,7 @@ public class Pompier {
         this.sexe = sexe;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

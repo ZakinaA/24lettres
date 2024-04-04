@@ -37,7 +37,7 @@
                 
                  <%-- Champ Liste des casernes --%>
                 <label for="caserne">Caserne : </label>
-                <select name="idPompier">
+                <select name="idCaserne">
                     <%
                         ArrayList<Caserne> lesCasernes= (ArrayList)request.getAttribute("pLesCasernes");
                         for (int i=0; i<lesCasernes.size();i++){
@@ -46,7 +46,11 @@
                         }
                     %>
                 </select>
+                
                 </br>  
+                <label for="dateNaiss">Date de naissance : </label>
+                <input id="dateNaiss"  type="date"  name="dateNaiss" size="30" maxlength="30">      
+                </br>
                 
                 <label for="prenom">PRENOM : </label>
                 <input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
@@ -54,15 +58,15 @@
                  
                 <%-- Champ Liste des grades --%>
                 <label for="grade">Grade : </label>
-                <select name="idPompier">
-                    <%
-                        ArrayList<Grade> lesGrades= (ArrayList)request.getAttribute("pLesGrades");
-                        for (int i=0; i<lesGrades.size();i++){
-                            Grade g = lesGrades.get(i);
-                            out.println("<option value='" + g.getId()+"'>" + g.getLibelle()+"</option>" );
-                        }
-                    %>
-                </select>
+        <select name="idGrade"> 
+            <%
+                ArrayList<Grade> lesGrades = (ArrayList)request.getAttribute("pLesGrades");
+                for (int i = 0; i < lesGrades.size(); i++){
+                    Grade g = lesGrades.get(i);
+                    out.println("<option value='" + g.getId() + "'>" + g.getLibelle() + "</option>");
+                }
+                %>
+        </select>
                 </br>   
                 
                 <label for="numBip">NUMERO BIP : </label>
