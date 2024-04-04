@@ -86,14 +86,14 @@ public class DaoIntervention {
         return i ;
     }
     
-    public static ArrayList<Pompier> getLesPompiersByIntervention(Connection cnx, int idFonction){
+    public static ArrayList<Pompier> getLesPompiersByIntervention(Connection cnx, int idIntervention){
         
         ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
         Pompier p = null;
         
         try{
-            requeteSql = cnx.prepareStatement ("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom FROM pompier INNER JOIN pompier_fonction ON pompier.id = pompier_fonction.pompier_id WHERE pompier_fonction.fonction_id = ?;");
-            requeteSql.setInt(1, idFonction);
+            requeteSql = cnx.prepareStatement ("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom FROM pompier INNER JOIN pompier_intervention ON pompier.id = pompier_intervention.pompier_id WHERE pompier_intervention.intervention_id = ?;");
+            requeteSql.setInt(1, idIntervention);
             resultatRequete = requeteSql.executeQuery();
         
         if (resultatRequete.next()){

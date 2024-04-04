@@ -87,7 +87,7 @@ public class ServletIntervention extends HttpServlet {
         }
         
          // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletFonction/consulter"))
+        if(url.equals("/sdisweb/ServletIntervention/consulter"))
         {  
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idPompier en int
@@ -95,7 +95,7 @@ public class ServletIntervention extends HttpServlet {
             System.out.println( "pompier à afficher = " + idIntervention);
             ArrayList<Pompier> lesPompiers = DaoIntervention.getLesPompiersByIntervention(cnx, idIntervention);
             request.setAttribute("lesPompiers", lesPompiers);
-            getServletContext().getRequestDispatcher("/vues/intervention/consulterFonction.jsp").forward(request, response);       
+            getServletContext().getRequestDispatcher("/vues/intervention/ConsulterIntervention.jsp").forward(request, response);       
            
            
         }
