@@ -86,7 +86,7 @@ public class ServletCaserne extends HttpServlet {
             //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
            getServletContext().getRequestDispatcher("/vues/caserne/listerCasernes.jsp").forward(request, response);
         }
-        if(url.equals("/sdisweb/ServletPompier/consulter"))
+        if(url.equals("/sdisweb/ServletCaserne/consulter"))
         {  
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idCaserne en int
