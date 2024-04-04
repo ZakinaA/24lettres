@@ -26,7 +26,8 @@ public class DaoFonction {
         
         ArrayList<Fonction> lesFonctions = new ArrayList<Fonction>();
         try{
-            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id;");
+            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle "
+                                            + "FROM fonction");
             resultatRequete = requeteSql.executeQuery();
             
             while (resultatRequete.next()){
@@ -52,11 +53,17 @@ public class DaoFonction {
         
         Fonction f = null ;
         try{
-            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle, pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id INNER JOIN pompier ON pompier.id = pompier_fonction.pompier_id where fonction.id= ? ");
+            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle, pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom "
+                                                + "FROM fonction "
+                                                + "INNER JOIN pompier_fonction "
+                                                + "ON fonction.id = pompier_fonction.fonction_id "
+                                                + "INNER JOIN pompier "
+                                                + "ON pompier.id = pompier_fonction.pompier_id "
+                                                + "where fonction.id= ? ");
             requeteSql.setInt(1, idFonction);
             resultatRequete = requeteSql.executeQuery();
             
-            if (resultatRequete.next()){
+            while (resultatRequete.next()){
                 
                     f = new Fonction();
                     f.setId(resultatRequete.getInt("f_id"));
@@ -83,7 +90,7 @@ public class DaoFonction {
             requeteSql.setInt(1, idFonction);
             resultatRequete = requeteSql.executeQuery();
         
-        if (resultatRequete.next()){
+        while (resultatRequete.next()){
             
             p = new Pompier();
             p.setId(resultatRequete.getInt("p_id"));
@@ -102,6 +109,31 @@ public class DaoFonction {
         return lesPompiers;
     }
     
+    
+    public static Fonction getNomFonctionById(Connection cnx, int idFonction){
+        
+        Fonction n = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle "
+                    + "FROM fonction "
+                    + "WHERE fonction.id = ?;");
+            requeteSql.setInt(1, idFonction);
+            resultatRequete = requeteSql.executeQuery();
+            
+            while (resultatRequete.next()){
+                n = new Fonction();
+                n.setId(resultatRequete.getInt("f_id"));
+                n.setLibelle(resultatRequete.getString("f_libelle"));
+            }
+        }
+          catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return n ;    
+    }
     public static Fonction addFonction(Connection connection, Fonction f){      
         int idGenere = -1;
         try

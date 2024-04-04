@@ -15,9 +15,9 @@
         <title>SDIS WEB</title>
     </head>
     <body>
-        <% Fonction f = (Fonction)request.getAttribute("pfFonction"); %>
-        <% if (f != null) { %>
-        <h1>Les pompiers de la  <% out.println(f.getLibelle()); %>  sont : </h1>
+        <% Fonction n = (Fonction)request.getAttribute("fNom"); %>
+        <% if (n != null) { %>
+        <h1>Les pompiers de la  <% out.println(n.getLibelle()); %>  sont : </h1>
         <% } else { %>
         <h1>Aucune fonction n'a été trouvée.</h1>
         <% } %>

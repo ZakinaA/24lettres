@@ -95,6 +95,10 @@ public class ServletFonction extends HttpServlet {
             System.out.println( "pompier à afficher = " + idFonction);
             ArrayList<Pompier> lesPompiers = DaoFonction.getLesPompiersByFonction(cnx, idFonction);
             request.setAttribute("lesPompiers", lesPompiers);
+            
+            Fonction n = DaoFonction.getNomFonctionById(cnx, idFonction);
+            request.setAttribute("fNom", n);
+            
             getServletContext().getRequestDispatcher("/vues/fonction/consulterFonction.jsp").forward(request, response);       
            
            
