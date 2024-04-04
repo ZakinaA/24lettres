@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Grade;
+import model.Pompier;
 import model.Surgrade;
 
 /**
@@ -69,5 +70,63 @@ public class DaoGrade {
         return lesGrades;
     }
     
+    
+    public static ArrayList<Pompier> getPompiersByGradeId(Connection cnx, int idPompier){
+        
+        ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
+        Pompier p = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.prenom AS p_prenom FROM pompier WHERE pompier.grade_id = ?;");
+            requeteSql.setInt(1, idPompier);
+            resultatRequete = requeteSql.executeQuery();
+        
+        while (resultatRequete.next()){
+            
+            p = new Pompier();
+                p.setId(resultatRequete.getInt("p_id"));
+                p.setNom(resultatRequete.getString("p_nom"));
+                p.setPrenom(resultatRequete.getString("p_prenom"));
+            
+                lesPompiers.add(p);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getFonctionById  a généré une erreur");
+        }
+        return lesPompiers;
+    }
+                
+    public static Grade getGradeById(Connection cnx, int idGrade){
+        
+        Grade g = null ;
+        try{
+            requeteSql = cnx.prepareStatement("SELECT grade.id AS g_id,"
+            + "                                 grade.libelle AS g_libelle"
+            + "                                 FROM grade"
+            + "                                 WHERE grade.id = ?;");
+            requeteSql.setInt(1, idGrade);
+            resultatRequete = requeteSql.executeQuery();
+            
+            if (resultatRequete.next()){
+                
+                    g = new Grade();
+                    g.setId(resultatRequete.getInt("g_id"));
+                    g.setLibelle(resultatRequete.getString("g_libelle"));
+                    
+                    ArrayList<Pompier> lesPompiers = DaoGrade.getPompiersByGradeId(cnx, idGrade);
+                    g.setLesPompiers(lesPompiers);
+            }
+           
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getPompierById  a généré une erreur");
+        }
+        return g ;
+    }
+    
 }
-
