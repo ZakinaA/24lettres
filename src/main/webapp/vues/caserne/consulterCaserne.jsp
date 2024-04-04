@@ -50,11 +50,8 @@
                    </div>
                    <div class="caserneInfo">
                    <label>Ville :</label>
-                   <span><%= c.getVille %></span>
+                   <span><%= c.getVille() %></span>
                    </div>
-                   <div class="caserneInfo">
-                   <label>Fonction :</label>
-                </div>
                </div>
            </main>
     </body>
