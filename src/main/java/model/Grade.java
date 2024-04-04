@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mahdi.ashuri
@@ -13,8 +15,17 @@ public class Grade {
     private int id;
     private String libelle;
     private Surgrade surgrade;
+    private ArrayList<Pompier> lesPompiers ;
     
-        public int getId() {
+    public Grade() {
+        
+    }
+    
+    public Grade(int id) {
+        this.id = id;
+    }
+    
+    public int getId() {
         return id;
     }
 
@@ -36,6 +47,14 @@ public class Grade {
     
     public void setSurgrade(Surgrade surgrade) {
         this.surgrade = surgrade;
+    }
+
+    public ArrayList<Pompier> getLesPompiers() {
+        return lesPompiers;
+    }
+    
+    public void setLesPompiers(ArrayList<Pompier> lesPompiers) {
+        this.lesPompiers = lesPompiers;
     }
     
 }
