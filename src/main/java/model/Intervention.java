@@ -15,9 +15,10 @@ public class Intervention {
     
     private int id;
     private String lieu ;
-    private LocalDate heureAppel;
-    private LocalDate heureArrivee;
-    private int duree;
+    private LocalDate date;
+    private String heureAppel;
+    private String heureArrivee;
+    private String duree;
     private ArrayList<Pompier> lesPompiers ;
 
     public Intervention() {
@@ -27,9 +28,10 @@ public class Intervention {
         this.id = id;
     }
     
-    public Intervention (int id, String lieu, LocalDate heureAppel, LocalDate heureArrivee, int Duree, ArrayList<Pompier> lesPompiers){
+    public Intervention (int id, String lieu, LocalDate date, String heureAppel, String heureArrivee, String Duree, ArrayList<Pompier> lesPompiers){
         this.id = id;
         this.lieu = lieu;
+        this.date = date;
         this.heureAppel = heureAppel;
         this.heureArrivee = heureArrivee;
         this.duree = duree;
@@ -44,15 +46,15 @@ public class Intervention {
         return lieu;
     }
 
-    public LocalDate getHeureAppel() {
+    public String getHeureAppel() {
         return heureAppel;
     }
 
-    public LocalDate getHeureArrivee() {
+    public String getHeureArrivee() {
         return heureArrivee;
     }
 
-    public int getDuree() {
+    public String getDuree() {
         return duree;
     }
 
@@ -60,19 +62,27 @@ public class Intervention {
         this.id = id;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public void setLieu(String lieu) {
         this.lieu = lieu;
     }
 
-    public void setHeureAppel(LocalDate heureAppel) {
+    public void setHeureAppel(String heureAppel) {
         this.heureAppel = heureAppel;
     }
 
-    public void setHeureArrivee(LocalDate heureArrivee) {
+    public void setHeureArrivee(String heureArrivee) {
         this.heureArrivee = heureArrivee;
     }
 
-    public void setDuree(int duree) {
+    public void setDuree(String duree) {
         this.duree = duree;
     }
 
