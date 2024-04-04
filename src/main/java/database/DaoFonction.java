@@ -117,7 +117,7 @@ public class DaoFonction {
         try{
             requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle "
                     + "FROM fonction "
-                    + "WHERE f_id = ?;");
+                    + "WHERE fonction.id = ?;");
             requeteSql.setInt(1, idFonction);
             resultatRequete = requeteSql.executeQuery();
             
