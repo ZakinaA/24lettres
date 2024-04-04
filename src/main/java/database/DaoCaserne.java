@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Caserne;
+import model.Fonction;
+import model.Pompier;
 
 /**
  *
@@ -75,5 +77,32 @@ public static Caserne getCaserneById(Connection cnx, int idCaserne){
     }
     return c ;
 }
-
+     public static ArrayList<Pompier> getPompierByCaserneId(Connection cnx, int idPompier){
+        
+        ArrayList<Pompier> lesPompiers = new ArrayList<Pompier>();
+        Pompier p = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement ("SELECT id,nom FROM `pompier` WHERE caserne_id = ?;");
+            requeteSql.setInt(1, idPompier);
+            resultatRequete = requeteSql.executeQuery();
+        
+        while (resultatRequete.next()){
+            
+            p = new Pompier();
+            p.setId(resultatRequete.getInt("p_id"));
+            p.setNom(resultatRequete.getString("p_nom"));
+            
+            lesPompiers.add(p);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getPompierById  a généré une erreur");
+        }
+        return lesPompiers;
+    }
 }
+
