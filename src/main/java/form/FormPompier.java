@@ -67,15 +67,7 @@ public class FormPompier {
         String prenom = getDataForm( request, "prenom");
         String sexe = getDataForm( request, "sexe");
         String telephone = getDataForm( request, "telephone");
-        
         String dateNaissance = getDataForm(request, "dateNaissance");
-        LocalDate dateNaiss = null;
-    
-         if (dateNaissance != null && !dateNaissance.isEmpty()) { // Vérifier si la chaîne de date est non nulle et non vide
-        dateNaiss = LocalDate.parse(dateNaissance); // Parser la date seulement si la chaîne n'est pas vide
-        }
-
-         
         String numeroBip = getDataForm( request, "numBip");
         
         int idCaserne = Integer.parseInt(getDataForm(request, "idCaserne"));
@@ -100,7 +92,7 @@ public class FormPompier {
         p.setSexe(sexe);
         p.setTelephone(telephone);
         p.setBip(numeroBip);
-        p.setDateNaissance(dateNaiss);
+        p.setDateNaissance(dateNaissance);
         
         p.setUneCaserne(new Caserne(idCaserne));
         

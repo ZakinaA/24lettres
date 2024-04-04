@@ -14,14 +14,14 @@ public class Vehicule {
     
     private int id;
     private String immat;
-    private LocalDate dateOrigine;
-    private LocalDate dateRevision;
+    private String dateOrigine;
+    private String dateRevision;
     private TypeVehicule typeVehicule;
     
     public Vehicule() {  
     }
 
-    public Vehicule(int id, String immat, LocalDate dateOrigine, LocalDate dateRevision, TypeVehicule typeVehicule) {
+    public Vehicule(int id, String immat, String dateOrigine, String dateRevision, TypeVehicule typeVehicule) {
         this.id = id;
         this.immat = immat;
         this.dateOrigine = dateOrigine;
@@ -49,19 +49,19 @@ public class Vehicule {
         this.immat = immat;
     }
 
-    public void setDateOrigine(LocalDate dateOrigine) {
+    public void setDateOrigine(String dateOrigine) {
         this.dateOrigine = dateOrigine;
     }
 
-    public void setDateRevision(LocalDate dateRevision) {
+    public void setDateRevision(String dateRevision) {
         this.dateRevision = dateRevision;
     }
 
-    public LocalDate getDateOrigine() {
+    public String getDateOrigine() {
         return dateOrigine;
     }
 
-    public LocalDate getDateRevision() {
+    public String getDateRevision() {
         return dateRevision;
     }
     

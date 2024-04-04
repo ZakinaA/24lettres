@@ -103,13 +103,7 @@ public class DaoPompier {
                     p.setTelephone(resultatRequete.getString("p_telephone"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
                     p.setBip(resultatRequete.getString("p_numeroBip"));
-                    
-                    if (resultatRequete.getDate("p_dateNaissance") != null) {
-                        Date sqlDateNaissance = resultatRequete.getDate("p_dateNaissance");
-                        p.setDateNaissance(sqlDateNaissance.toLocalDate());
-                    } else {
-                        p.setDateNaissance(null);
-                    }
+                    p.setDateNaissance(resultatRequete.getString("p_dateNaissance"));
                     
                     Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
@@ -148,15 +142,7 @@ public class DaoPompier {
             requeteSql.setString(2, p.getSexe());
             requeteSql.setString(3, p.getTelephone());
             requeteSql.setInt(4, p.getUneCaserne().getId());
-           
-            if (p.getDateNaissance() != null){
-                requeteSql.setDate(5,Date.valueOf(p.getDateNaissance()));
-            }
-            else
-            {
-                requeteSql.setDate(5, null);
-            }    
-            
+            requeteSql.setString(5, p.getDateNaissance());
             requeteSql.setString(6, p.getPrenom());
             requeteSql.setInt(7, p.getUnGrade().getId());
             requeteSql.setString(8, p.getBip());
