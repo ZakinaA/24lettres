@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Caserne;
+import model.Fonction;
 import model.Grade;
 import model.Pompier;
 
@@ -56,6 +57,34 @@ public class DaoPompier {
         return lesPompiers;
     }
     
+    public static ArrayList<Fonction> getLesFonctionsByPompier(Connection cnx, int idPompier){
+        
+        ArrayList<Fonction> lesFonctions = new ArrayList<Fonction>();
+        Fonction f = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement ("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle FROM fonction INNER JOIN pompier_fonction ON fonction.id = pompier_fonction.fonction_id WHERE pompier_fonction.pompier_id = ?;");
+            requeteSql.setInt(1, idPompier);
+            resultatRequete = requeteSql.executeQuery();
+        
+        while (resultatRequete.next()){
+            
+            f = new Fonction();
+            f.setId(resultatRequete.getInt("f_id"));
+            f.setLibelle(resultatRequete.getString("f_libelle"));
+            
+            lesFonctions.add(f);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getFonctionById  a généré une erreur");
+        }
+        return lesFonctions;
+    }
+                
     public static Pompier getPompierById(Connection cnx, int idPompier){
         
         Pompier p = null ;
@@ -88,8 +117,8 @@ public class DaoPompier {
                     g.setLibelle(resultatRequete.getString("g_libelle"));
                     p.setUnGrade(g);
                 
-                
-                
+                    ArrayList<Fonction> lesFonctions = DaoPompier.getLesFonctionsByPompier(cnx, idPompier);
+                    p.setLesFonctions(lesFonctions);
             }
            
         }
