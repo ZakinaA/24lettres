@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Caserne;
 import model.Fonction;
@@ -103,7 +104,10 @@ public class DaoPompier {
                     p.setTelephone(resultatRequete.getString("p_telephone"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
                     p.setBip(resultatRequete.getString("p_numeroBip"));
-                    p.setDateNaissance(resultatRequete.getString("p_dateNaissance"));
+                    
+                    Date dateNaissance = resultatRequete.getDate("p_dateNaissance");
+                    p.setDateNaissance(dateNaissance.toLocalDate());
+                    
                     
                     Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
@@ -142,7 +146,11 @@ public class DaoPompier {
             requeteSql.setString(2, p.getSexe());
             requeteSql.setString(3, p.getTelephone());
             requeteSql.setInt(4, p.getUneCaserne().getId());
-            requeteSql.setString(5, p.getDateNaissance());
+            
+            LocalDate dateNaiss = p.getDateNaissance();
+            Date DateNaissance = Date.valueOf(dateNaiss);
+            
+            requeteSql.setDate(5, DateNaissance);
             requeteSql.setString(6, p.getPrenom());
             requeteSql.setInt(7, p.getUnGrade().getId());
             requeteSql.setString(8, p.getBip());

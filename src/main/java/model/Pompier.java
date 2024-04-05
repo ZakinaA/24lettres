@@ -21,7 +21,7 @@ public class Pompier {
     private String prenom ;
     private String sexe;
     private String telephone;
-    private String dateNaissance;
+    private LocalDate dateNaissance;
     private Caserne uneCaserne ;
     private Grade unGrade ;
     private ArrayList<Fonction> lesFonctions ;
@@ -91,7 +91,7 @@ public class Pompier {
         return telephone;
     }
 
-    public String getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
@@ -103,7 +103,7 @@ public class Pompier {
         this.telephone = telephone;
     }
 
-    public void setDateNaissance(String dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
     

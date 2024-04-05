@@ -48,8 +48,8 @@
                 </select>
                 
                 </br>  
-                <label for="dateNaiss">Date de naissance : </label>
-                <input id="dateNaiss"  type="date"  name="dateNaiss" size="30" maxlength="30">      
+                <label for="dateNaissance">Date de naissance : </label>
+                <input id="dateNaissance"  type="date"  name="dateNaissance" size="30" maxlength="30">      
                 </br>
                 
                 <label for="prenom">PRENOM : </label>
