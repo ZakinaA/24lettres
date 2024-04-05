@@ -1,106 +1,71 @@
-<%-- 
-    Document   : consulterPompier
-    Created on : 18 mars 2024, 12:03:07
-    Author     : zakina
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Pompier"%>
+<%@page import="model.Caserne"%>
+<%@page import="model.Grade"%>
 <%@page import="model.Fonction"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SDIS WEB</title>
-    </head>
-    <body>
-        <%
-            Pompier p = (Pompier)request.getAttribute("pPompier");
-        %>
-        <h1>Bienvenue <%  out.println(p.getPrenom());%>  <%  out.println(p.getNom());%></h1>
-       <div class="pompier">
-           <main>
-               <div class="un">
-                   <div class="pompierInfo">
-                   <label>ID :</label>
-                   <span><%= p.getId() %></span>
-                   </div>
-                   <div class="pompierInfo">
-                   <label>Nom :</label>
-                   <span><%= p.getNom() %></span>
-                   </div>
-                   <div class="pompierInfo">
-                   <label>Sexe :</label>
-                   <span><%= p.getSexe() %></span>
-                   </div>
-                   <div class="pompierInfo">
-                   <label>Téléphone :</label>
-                   <span><%= p.getTelephone() %></span>
-                   </div>
-                   <div class="pompierInfo">
-                   <label>Caserne :</label>
-                   <span><%= p.getUneCaserne().getNom() %></span>
-                   </div>
-                   <div class="pompierInfo">
-                   <label>Fonction :</label>
-                   <ul>
-                       <%for (Fonction fonction : p.getLesFonctions()) {%>
-                       <li><%= fonction.getLibelle() %> </li>
-                       <% } %>
-                   </ul>
-                </div>
-               </div>
-           </main>
-            <div class="deux">
-                <main>
-                        <div class ="pompierInfo">
-                        <label>Date de Naissance :</label>
-                        <span><%= p.getDateNaissance() %></span>
-                        </div>
-                        <div class="pompierInfo">
-                        <label>Prénom :</label>
-                        <span><%= p.getPrenom() %></span>
-                        </div>
-                        <div class="pompierInfo">
-                        <label>Grade :</label>
-                        <span><%= p.getUnGrade().getLibelle() %></span>
-                        </div>
-                        <div class="pompierInfo">
-                        <label> Numéro de Bip :</label>
-                        <span><%= p.getBip() %></span>
-                        </div>
-                    
-                </main>
+<%@page import="java.util.ArrayList"%>
+<jsp:include page="/vues/commun.jsp" />
+<% Pompier p = (Pompier)request.getAttribute("pPompier"); %>
+        <main>
+            <div class="page-header">
+                <h1>Fiche de renseignement : </h1>
             </div>
-                    <style>
-                        body, html{
-                            margin: 0;
-                            padding: 0;
-                            height: 100%;
-                        }
-                        .pompier{
-                            display: flex;
-                        }
-                        .un, .deux{
-                            flex:1;
-                            padding:20px;
-                            box-sizing: border-box;
-                        }
-                        .deux{
-                            marging-right:50px;
-                        }
-                        .pompierInfo{
-                            margin-bottom: 20px;
-                        }
-                        label{
-                            display: block;
-                            margin-bottom: 5px;
-                            font-weight: bold;
-                        }
-                        span{
-                            display: inline-block;
-                            margin-bottom: 5px;
-                        }
-                    </style>
-    </body>
-</html>
+            <br>
+            <br> 
+            <br>
+            <br>
+            <div class="pompier">
+        <div class="un">
+            <div class="pompierInfo">
+                <strong><div class="labelConsulter">ID :</div></strong>
+                <div class="spanConsulter"><%= p.getId() %></div>
+            </div>
+            <div class="pompierInfo">
+               <strong> <div class="labelConsulter">Nom :</div></strong>
+                <div class="spanConsulter"><%= p.getNom() %></div>
+            </div>
+            <div class="pompierInfo">
+                <strong><div class="labelConsulter">Sexe :</div></strong>
+                <div class="spanConsulter"><%= p.getSexe() %></div>
+            </div>
+            <div class="pompierInfo">
+                <strong><div class="labelConsulter">Téléphone :</div></strong>
+                <div class="spanConsulter"><%= p.getTelephone() %></div>
+            </div>
+            <div class="pompierInfo">
+               <strong> <div class="labelConsulter">Caserne :</div></strong>
+                <div class="spanConsulter"><%= p.getUneCaserne().getNom() %></div>
+            </div>
+            <div class="pompierInfo">
+                <strong><div class="labelConsulter">Fonction :</div></strong>
+                <ul>
+                    <% for (Fonction fonction : p.getLesFonctions()) { %>
+                        <li><div class="spanConsulter"><%= fonction.getLibelle() %></div></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+        <div class="deux">
+            <div class="pompierInfo">
+                <strong><div class="labelConsulter">Date de Naissance :</div></strong>
+                <div class="spanConsulter"><%= p.getDateNaissance() %></div>
+            </div>
+            <div class="pompierInfo">
+               <strong> <div class="labelConsulter">Prénom :</div></strong>
+                <div class="spanConsulter"><%= p.getPrenom() %></div>
+            </div>
+            <div class="pompierInfo">
+               <strong> <div class="labelConsulter">Grade :</div></strong>
+                <div class="spanConsulter"><%= p.getUnGrade().getLibelle() %></div>
+            </div>
+            <div class="pompierInfo">
+               <strong> <div class="labelConsulter">Numéro de Bip :</div></strong>
+                <div class="spanConsulter"><%= p.getBip() %></div>
+            </div>
+        </div>
+    </div>
+
+        </main>
+
+    </div>
+                            
