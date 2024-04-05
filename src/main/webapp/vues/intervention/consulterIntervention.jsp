@@ -14,11 +14,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <% Intervention i = (Intervention)request.getAttribute("piIntervention"); %>
+         <% Intervention i = (Intervention)request.getAttribute("iNom"); %>
         <% if (i != null) { %>
-        <h1>Les pompiers de la  <% out.println(i.getId()); %>  sont : </h1>
+        <h1>Les pompiers de l'intervention  <% out.println(i.getLieu()); %>  sont : </h1>
         <% } else { %>
-        <h1>Aucune fonction n'a été trouvée.</h1>
+        <h1>Aucune intervention n'a été trouvée.</h1>
         <% } %>
         
         <table>
