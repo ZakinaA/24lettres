@@ -2,57 +2,50 @@
 <%@page import="model.Pompier"%>
 <%@page import="model.Caserne"%>
 <%@page import="java.util.ArrayList"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SDIS WEB</title>
-    </head>
-    <body>
-        <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>APPLICATION DE GESTION SDIS CALVADOS</title>
-    </head>
-    <body>
-        <h1>Liste des pompiers du Calvados</h1>
-            <%
-                ArrayList<Pompier> lesPompiers = (ArrayList)request.getAttribute("pLesPompiers");
-            %>
-            <table>  
-            <thead>
-                <tr>             
-                    <th>id</th>
-                    <th>nom</th>
-                    <th>prenom</th>
-                    <th>caserne</th>                
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <%
-                        for (Pompier p : lesPompiers)
-                        {              
-                            out.println("<tr><td>");
-                            out.println(p.getId());
-                            out.println("</a></td>");
+<jsp:include page="/vues/commun.jsp" />
+<% ArrayList<Pompier> lesPompiers = (ArrayList)request.getAttribute("pLesPompiers"); %>
+        <main>
 
-                            out.println("<td><a href ='../ServletPompier/consulter?idPompier="+ p.getId()+ "'>");
-                            out.println(p.getNom());
-                            out.println("</td>");;
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <small>Home / Dashboard</small>
+            </div>
 
-                            out.println("<td>");
-                            out.println(p.getPrenom());
-                            out.println("</td>");
-                           
-                            out.println("<td>");
-                            out.println(p.getUneCaserne().getNom());
-                            out.println("</td>");
-                               
-                        }
-                    %>
-                </tr>
-            </tbody>
-        </table>
-    </body>
-    </body>
-</html>
+            <div class="page-content">
+
+                <div class="records table-responsive">
+
+                    <div>
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <th><span class="las la-sort"></span> Nom</th>
+                                    <th><span class="las la-sort"></span> Prénom</th>
+                                    <th><span class="las la-sort"></span> Caserne</th>
+                                    <th><span class="las la-sort"></span> Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (Pompier p : lesPompiers) { %>
+                                <tr>
+                                    <td><%= p.getNom() %></td>
+                                    <td><%= p.getPrenom() %></td>
+                                    <td><%= p.getUneCaserne().getNom() %></td>
+                                    
+                                    <td>
+                                       <%out.println("<td><a href ='../ServletPompier/consulter?idPompier="+ p.getId()+ "'> Consulter </a>");%>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+                            
