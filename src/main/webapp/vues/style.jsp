@@ -550,7 +550,7 @@
                         .pompierInfo{
                             margin-bottom: 20px;
                         }
-                        label{
+                        labelConsulter{
                             display: block;
                             margin-bottom: 5px;
                             font-weight: bold;
