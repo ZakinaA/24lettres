@@ -134,6 +134,7 @@ public class DaoFonction {
         }
         return n ;    
     }
+    
     public static Fonction addFonction(Connection connection, Fonction f){      
         int idGenere = -1;
         try
