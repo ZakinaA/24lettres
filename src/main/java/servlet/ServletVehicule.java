@@ -6,7 +6,7 @@ package servlet;
 
 import database.DaoTypeVehicule;
 import database.DaoVehicule;
-import form.FormFonction;
+import form.FormVehicule;
 import form.FormVehicule;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
+import model.Intervention;
 import model.TypeVehicule;
 import model.Vehicule;
 
@@ -99,9 +100,13 @@ public class ServletVehicule extends HttpServlet {
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idPompier en int
             int idVehicule = Integer.parseInt((String)request.getParameter("idVehicule"));
-            System.out.println( "vehicule à afficher = " + idVehicule);
-            Vehicule f= DaoVehicule.getVehiculeById(cnx, idVehicule);
-            request.setAttribute("vVehicule", f);
+            System.out.println( "intervention à afficher = " + idVehicule);
+            ArrayList<Intervention> lesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
+            request.setAttribute("lesInterventions", lesInterventions);
+            
+            Vehicule n = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
+            request.setAttribute("vNom", n);
+            
             getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);       
            
            
