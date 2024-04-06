@@ -63,12 +63,6 @@
                             <small>Grade</small>
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-tasks"></span>
-                            <small>Tasks</small>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
