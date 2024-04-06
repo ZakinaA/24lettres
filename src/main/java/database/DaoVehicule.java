@@ -36,10 +36,12 @@ public class DaoVehicule {
             Vehicule v = new Vehicule();
             v.setId(resultatRequete.getInt("v_id"));
             v.setImmat(resultatRequete.getString("v_immat"));
-            v.setDateOrigine(resultatRequete.getString("v_dateOrigine"));
-            v.setDateRevision(resultatRequete.getString("v_dateRevision"));
             
-
+            Date dateOrigine = resultatRequete.getDate("v_dateOrigine");
+            v.setDateOrigine(dateOrigine.toLocalDate());
+            Date dateRevision = resultatRequete.getDate("v_dateRevision");
+            v.setDateRevision(dateRevision.toLocalDate());
+            
             TypeVehicule type = new TypeVehicule();
             type.setNom(resultatRequete.getString("vt_nom"));
             v.setTypeVehicule(type);
@@ -67,8 +69,10 @@ public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
             v = new Vehicule();
             v.setId(resultatRequete.getInt("v_id"));
             v.setImmat(resultatRequete.getString("v_immat"));
-            v.setDateOrigine(resultatRequete.getString("v_dateOrigine"));
-            v.setDateRevision(resultatRequete.getString("v_dateRevision"));
+            Date dateOrigine = resultatRequete.getDate("v_dateOrigine");
+            v.setDateOrigine(dateOrigine.toLocalDate());
+            Date dateRevision = resultatRequete.getDate("v_dateRevision");
+            v.setDateRevision(dateRevision.toLocalDate());
             
             
             TypeVehicule type = new TypeVehicule();
