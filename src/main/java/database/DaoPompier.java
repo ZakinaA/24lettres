@@ -90,7 +90,11 @@ public class DaoPompier {
         
         Pompier p = null ;
         try{
-            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle, pompier.numeroBip AS p_numeroBip FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id INNER JOIN grade ON pompier.grade_id = grade.id where pompier.id= ?; ");
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle, pompier.numeroBip AS p_numeroBip "
+                    + "FROM pompier "
+                    + "INNER JOIN caserne ON pompier.caserne_id = caserne.id "
+                    + "INNER JOIN grade ON pompier.grade_id = grade.id "
+                    + "where pompier.id= ?; ");
             requeteSql.setInt(1, idPompier);
             resultatRequete = requeteSql.executeQuery();
             
