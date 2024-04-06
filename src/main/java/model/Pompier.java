@@ -114,7 +114,7 @@ public class Pompier {
         this.lesFonctions = lesFonctions;
     }
     
-    public void addPompier(Fonction f){
+    public void addFonction(Fonction f){
         if (lesFonctions == null){
             lesFonctions = new ArrayList<Fonction>();
         }
