@@ -57,52 +57,21 @@ public class DaoVehicule {
     return lesVehicules;
 }
 
-     public static ArrayList<Intervention> getLesInterventionsByVehicule(Connection cnx, int idVehicule){
-        
-        ArrayList<Intervention> lesInterventions = new ArrayList<Intervention>();
-        Intervention i = null;
-        
-        try{
-            requeteSql = cnx.prepareStatement ("SELECT intervention.id AS i_id, intervention.lieu AS i_lieu, intervention.date AS i_date "
-                    + "FROM intervention "
-                    + "INNER JOIN intervention_vehicule ON intervention.id = intervention_vehicule.intervention_id "
-                    + "WHERE intervention_vehicule.vehicule_id = ?;");
-            requeteSql.setInt(1, idVehicule);
-            resultatRequete = requeteSql.executeQuery();
-        
-        while (resultatRequete.next()){
-            
-            i = new Intervention();
-            i.setId(resultatRequete.getInt("i_id"));
-            i.setLieu(resultatRequete.getString("i_lieu"));
-            Date date = resultatRequete.getDate("i_date");
-            i.setDate(date.toLocalDate());
-                    
-            
-            lesInterventions.add(i);
-            }
-        }
-        
-        
-        catch (SQLException e){
-            e.printStackTrace();
-            System.out.println("La requête de getLesInterventionsByVehicule a généré une erreur");
-        }
-        return lesInterventions;
-    }
-     
 public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
 
     Vehicule v = null ;
     try{
-        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision, vehicule_type.nom AS vt_nom "
+        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision, vehicule_type.nom AS vt_nom, intervention.id AS i_id, intervention.lieu AS i_lieu, intervention.date AS i_date "
                 + "FROM vehicule "
-                + "INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id "
+                + "INNER JOIN type_vehicule "
+                + "ON type_vehicule.id = vehicule.type_vehicule_id "
+                + "INNER JOIN intervention "
+                + "ON intervention.id = intervention_vehicule.intervention_id"
                 + "where vehicule.id= ? ;");
         requeteSql.setInt(1, idVehicule);
         resultatRequete = requeteSql.executeQuery();
 
-        if (resultatRequete.next()){
+        while (resultatRequete.next()){
 
             v = new Vehicule();
             v.setId(resultatRequete.getInt("v_id"));
@@ -116,8 +85,6 @@ public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
             type.setNom(resultatRequete.getString("vt_nom"));
             v.setTypeVehicule(type);
           
-            ArrayList<Intervention> lesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
-            v.setLesInterventions(lesInterventions);
         }
 
     }
@@ -127,6 +94,63 @@ public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
     }
     return v ;
 }
+public static ArrayList<Intervention> getLesInterventionsByVehicule(Connection cnx, int idFonction){
+        
+        ArrayList<Intervention> lesInterventions = new ArrayList<Intervention>();
+        Intervention i = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement ("SELECT intervention.id AS i_id, intervention.lieu AS i_lieu, intervention.date AS i_date "
+                    + "FROM intervention "
+                    + "INNER JOIN intervention_vehicule ON intervention.id = intervention_vehicule.intervention_id "
+                    + "WHERE intervention_vehicule.intervention_id = ?;");
+            requeteSql.setInt(1, idFonction);
+            resultatRequete = requeteSql.executeQuery();
+        
+        while (resultatRequete.next()){
+            
+            i = new Intervention();
+            i.setId(resultatRequete.getInt("i_id"));
+            i.setLieu(resultatRequete.getString("i_lieu"));
+            Date dateInter = resultatRequete.getDate("i_date");
+            i.setDate(dateInter.toLocalDate());
+            
+            lesInterventions.add(i);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getLesInterventionsByVehicule a généré une erreur");
+        }
+        return lesInterventions;
+    }
+
+public static Vehicule getNomVehiculeById(Connection cnx, int idVehicule){
+        
+        Vehicule n = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat "
+                    + "FROM vehicule "
+                    + "WHERE vehicule.id = ?;");
+            requeteSql.setInt(1, idVehicule);
+            resultatRequete = requeteSql.executeQuery();
+            
+            while (resultatRequete.next()){
+                n = new Vehicule();
+                n.setId(resultatRequete.getInt("v_id"));
+                n.setImmat(resultatRequete.getString("v_immat"));
+            }
+        }
+          catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return n ;    
+    }
 
 public static Vehicule addVehicule(Connection connection, Vehicule v) {
     int idGenere = -1;
