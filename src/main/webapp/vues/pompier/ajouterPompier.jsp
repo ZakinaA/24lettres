@@ -1,42 +1,36 @@
-<%-- 
-    Document   : ajouterPompier
-    Created on : 18 mars 2024, 13:30:47
-    Author     : zakina
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="model.Pompier"%>
 <%@page import="model.Caserne"%>
-<%@page import="model.Grade"%>
 <%@page import="form.FormPompier"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SDIS WEB</title>
-    </head>
-    <body>
-        <h1>NOUVEAU POMPIER</h1>
-        
-            <%
-                FormPompier form = (FormPompier)request.getAttribute("form");
-            %>
-        
-        <form class="form-inline" action="ajouter" method="POST">
-                <label for="nom">NOM : </label>
+<%@page import="model.Grade"%>
+<%@page import="model.Fonction"%>
+<%@page import="java.util.ArrayList"%>
+<jsp:include page="/vues/commun.jsp" />
+<% FormPompier form = (FormPompier)request.getAttribute("form"); %>
+        <main>
+            <div class="page-header">
+                <h1>Ajouter un pompier : </h1>
+            </div>
+            <br><br><br><br>
+            
+            <div class="pompier">
+             <div class="un">
+
+             <form class="form-inline" action="ajouter" method="POST">
+                <label for="nom">Nom : </label><br>
                 <input id="nom" type="text" name="nom"  size="30" maxlength="30">
-                </br>
+                </br> </br>
                 
-                <label for="sexe">SEXE : </label>
+                <label for="sexe">Sexe : </label><br>
                 <input id="sexe"  type="text"  name="sexe" size="30" maxlength="30">      
-                </br>
+                </br> </br>
                 
-                <label for="telephone">TELEPHONE : </label>
+                <label for="telephone">Téléphone : </label><br>
                 <input id="telephone"  type="text"  name="telephone" size="30" maxlength="30">      
-                </br>
+                </br> </br>
                 
                  <%-- Champ Liste des casernes --%>
-                <label for="caserne">Caserne : </label>
+                <label for="caserne">Caserne : </label><br>
                 <select name="idCaserne">
                     <%
                         ArrayList<Caserne> lesCasernes= (ArrayList)request.getAttribute("pLesCasernes");
@@ -46,18 +40,20 @@
                         }
                     %>
                 </select>
+             </div>
+                <div class="deux">
+                </br>   </br>
                 
-                </br>  
-                <label for="dateNaissance">Date de naissance : </label>
+                <label for="dateNaissance">Date de naissance : </label><br>
                 <input id="dateNaissance"  type="date"  name="dateNaissance" size="30" maxlength="30">      
-                </br>
+                </br> </br>
                 
-                <label for="prenom">PRENOM : </label>
+                <label for="prenom">Prénom : </label><br>
                 <input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
-                </br>
+                </br> </br>
                  
                 <%-- Champ Liste des grades --%>
-                <label for="grade">Grade : </label>
+                <label for="grade">Grade : </label><br>
         <select name="idGrade"> 
             <%
                 ArrayList<Grade> lesGrades = (ArrayList)request.getAttribute("pLesGrades");
@@ -67,17 +63,17 @@
                 }
                 %>
         </select>
-                </br>   
+                </br></br>
                 
-                <label for="numBip">NUMERO BIP : </label>
+                <label for="numBip">Numéro Bip  : </label><br>
                 <input id="numBip"  type="text"  name="numBip" size="30" maxlength="30">      
-                </br>
+                </br> </br>
                         
             <input type="submit" name="valider" id="valider" value="Valider"/>
             </form>
-        
-        
-        
-        
-    </body>
-</html>
+    </div>
+   </div>
+        </main>
+
+    </div>
+                            
