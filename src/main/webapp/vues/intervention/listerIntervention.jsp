@@ -1,72 +1,57 @@
-<%-- 
-    Document   : lister_pompiers.jsp
-    Created on : 15 mars 2024, 16:50:49
-    Author     : zakina
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Intervention"%>
 <%@page import="java.util.ArrayList"%>
+<jsp:include page="/vues/commun.jsp" />
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SDIS WEB</title>
-    </head>
-    <body>
-        <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>APPLICATION DE GESTION SDIS CALVADOS</title>
-    </head>
-    <body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>SDIS WEB</title>
+</head>
+<body>
+    <div class="page-header">
         <h1>Liste des interventions du Calvados</h1>
-            <%
-                ArrayList<Intervention> lesInterventions = (ArrayList)request.getAttribute("iLesInterventions");
-            %>
-            <table>  
-            <thead>
-                <tr>             
-                    <th>id</th>
-                    <th>lieu</th>   
-                    <th>heureAppel</th>    
-                    <th>heureArrivee</th> 
-                    <th>duree</th>               
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <%
-                        for (Intervention i : lesInterventions)
-                        {              
-                            out.println("<tr><td>");
-                            out.println(i.getId());
-                            out.println("</a></td>");
-
-                            out.println("<td><a href ='../ServletIntervention/consulter?idIntervention="+ i.getId()+ "'>");
-                            out.println(i.getLieu());
-                            out.println("</td>");
-                            
-                            out.println("<td>");
-                            out.println(i.getHeureAppel());
-                            out.println("</td>");
-                            
-                            out.println("<td>");
-                            out.println(i.getHeureArrivee());
-                            out.println("</td>");
-                            
-                            out.println("<td>");
-                            out.println(i.getDuree());
-                            out.println("</td>");
-    
-    
-    
-    
-    
-                        }
-                    %>
-                </tr>
-            </tbody>
-        </table>
-    </body>
-    </body>
+        <small>Calvados / Caen</small>
+    </div>
+    <div class="page-content">
+        <div class="records table-responsive">
+            <div class="record-header">
+                <div class="browse"></div>
+                <div class="add">
+                    <button><a href="../ServletPompier/ajouter">Ajouter un pompier</a></button>
+                </div>
+            </div> 
+            <div>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <th><span class="las la-sort"></span> Id</th>
+                            <th><span class="las la-sort"></span> Lieu</th>
+                            <th><span class="las la-sort"></span> Heure d'appel</th>
+                            <th><span class="las la-sort"></span> Heure d'arrivée</th>
+                            <th><span class="las la-sort"></span> Durée</th>
+                            <th><span class="las la-sort"></span> Consulter les pompiers</th>
+                            <th><span class="las la-sort"></span> Consulter les véhicules</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% ArrayList<Intervention> lesInterventions = (ArrayList<Intervention>)request.getAttribute("iLesInterventions");
+                        for (Intervention i : lesInterventions) { %>
+                            <tr>
+                                <td><%= i.getId() %></td>
+                                <td><%= i.getLieu() %></td>
+                                <td><%= i.getHeureAppel() %></td>
+                                <td><%= i.getHeureArrivee() %></td>
+                                <td><%= i.getDuree() %></td>
+                                <td><a href="../ServletIntervention/consulter?idIntervention=<%= i.getId() %>">Consulter les pompiers</a></td>
+                                <td><a href="../ServletVehicule/consulter?idVehicule=<%= i.getId() %>">Consulter les véhicules</a></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
