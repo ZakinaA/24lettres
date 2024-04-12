@@ -111,6 +111,20 @@
         <url-pattern>/ServletGrade/consulter</url-pattern>
     </servlet-mapping>
     
+     <!-- ServletSituation -->
+    <servlet>
+        <servlet-name>ServletSituation</servlet-name>
+        <servlet-class>servlet.ServletSituation</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSituation</servlet-name>
+        <url-pattern>/ServletSituation/lister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSituation</servlet-name>
+        <url-pattern>/ServletSituation/consulter</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         
         
