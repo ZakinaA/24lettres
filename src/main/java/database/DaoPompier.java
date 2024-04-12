@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import model.Caserne;
 import model.Fonction;
 import model.Grade;
+import model.Intervention;
 import model.Pompier;
 
 /**
@@ -135,6 +136,39 @@ public class DaoPompier {
         return p ;
     }
     
+    public static ArrayList<Intervention> getLesInterventionsByPompier(Connection cnx, int idPompier){
+        
+        ArrayList<Intervention> lesInterventions = new ArrayList<Intervention>();
+        Intervention i = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement ("SELECT intervention.id AS i_id, intervention.date AS i_date, intervention.heureAppel AS i_heureAppel, intervention.heureArrivee AS i_heureArrivee FROM intervention INNER JOIN pompier_intervention ON intervention.id = pompier_intervention.intervention_id WHERE pompier_intervention.pompier_id = ?;");
+            requeteSql.setInt(1, idPompier);
+            resultatRequete = requeteSql.executeQuery();
+        
+        while (resultatRequete.next()){
+            
+            i = new Intervention();
+            i.setId(resultatRequete.getInt("i_id"));
+            
+            Date date = resultatRequete.getDate("i_date");
+            i.setDate(date.toLocalDate());
+                    
+            i.setHeureAppel(resultatRequete.getString("i_heureAppel"));
+            i.setHeureArrivee(resultatRequete.getString("i_heureArrivee"));
+            i.setDuree(resultatRequete.getString("i_duree"));
+            
+            lesInterventions.add(i);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getLesInterventionsByPompier a généré une erreur");
+        }
+        return lesInterventions;
+    }
     
     public static Pompier addPompier(Connection connection, Pompier p){      
         int idGenere = -1;
