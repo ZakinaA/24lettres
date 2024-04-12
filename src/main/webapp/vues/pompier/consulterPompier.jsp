@@ -3,6 +3,7 @@
 <%@page import="model.Caserne"%>
 <%@page import="model.Grade"%>
 <%@page import="model.Fonction"%>
+<%@page import="model.Intervention"%>
 <%@page import="java.util.ArrayList"%>
 <jsp:include page="/vues/commun.jsp" />
 <% Pompier p = (Pompier)request.getAttribute("pPompier"); %>
@@ -61,6 +62,18 @@
             <div class="pompierInfo">
                <strong> <div class="labelConsulter">Numéro de Bip :</div></strong>
                 <div class="spanConsulter"><%= p.getBip() %></div>
+            </div>
+             <div class="pompierInfo">
+                <strong><div class="labelConsulter">Intervention :</div></strong>
+                <ul>
+                    <% for (Intervention intervention : p.getLesInterventions()) { %>
+                        <li><div class="spanConsulter"><%= intervention.getLieu() %></div></li>
+                        <li><div class="spanConsulter"><%= intervention.getDate() %></div></li>
+                        <li><div class="spanConsulter"><%= intervention.getHeureAppel() %></div></li>
+                        <li><div class="spanConsulter"><%= intervention.getHeureArrivee() %></div></li>
+                        <li><div class="spanConsulter"><%= intervention.getDuree() %></div></li>
+                    <% } %>
+                </ul>
             </div>
         </div>
     </div>

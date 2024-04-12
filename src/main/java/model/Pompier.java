@@ -129,4 +129,11 @@ public class Pompier {
         }
         lesFonctions.add(f);
     }
+    
+     public void addIntervention(Intervention i){
+        if (lesInterventions == null){
+            lesInterventions = new ArrayList<Intervention>();
+        }
+        lesInterventions.add(i);
+    }
 }

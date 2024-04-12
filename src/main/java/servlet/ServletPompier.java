@@ -100,9 +100,7 @@ public class ServletPompier extends HttpServlet {
             Pompier p= DaoPompier.getPompierById(cnx, idPompier);
             request.setAttribute("pPompier", p);
             
-            ArrayList<Intervention> lesInterventions = DaoPompier.getLesInterventionsByPompier(cnx, idPompier);
-            request.setAttribute("lesInterventions", lesInterventions);
-            
+        
             getServletContext().getRequestDispatcher("/vues/pompier/consulterPompier.jsp").forward(request, response);       
            
            
