@@ -25,6 +25,7 @@ public class Pompier {
     private Caserne uneCaserne ;
     private Grade unGrade ;
     private ArrayList<Fonction> lesFonctions ;
+    private ArrayList<Intervention> lesInterventions ;
 
     public Pompier() {
     }
@@ -112,6 +113,14 @@ public class Pompier {
     }
     public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
         this.lesFonctions = lesFonctions;
+    }
+    
+    public ArrayList<Intervention> getLesInterventions() {
+        return lesInterventions;
+    }
+    
+    public void setLesInterventions(ArrayList<Intervention> lesInterventions) {
+        this.lesInterventions = lesInterventions;
     }
     
     public void addFonction(Fonction f){
