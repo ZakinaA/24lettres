@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import model.Caserne;
 import model.Grade;
+import model.Intervention;
 import model.Pompier;
 
 /**
@@ -98,6 +99,10 @@ public class ServletPompier extends HttpServlet {
             System.out.println( "pompier à afficher = " + idPompier);
             Pompier p= DaoPompier.getPompierById(cnx, idPompier);
             request.setAttribute("pPompier", p);
+            
+            ArrayList<Intervention> lesInterventions = DaoPompier.getLesInterventionsByPompier(cnx, idPompier);
+            request.setAttribute("lesInterventions", lesInterventions);
+            
             getServletContext().getRequestDispatcher("/vues/pompier/consulterPompier.jsp").forward(request, response);       
            
            
