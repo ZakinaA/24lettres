@@ -103,7 +103,7 @@ public static ArrayList<Intervention> getLesInterventionsByVehicule(Connection c
             requeteSql = cnx.prepareStatement ("SELECT intervention.id AS i_id, intervention.lieu AS i_lieu, intervention.date AS i_date "
                     + "FROM intervention "
                     + "INNER JOIN intervention_vehicule ON intervention.id = intervention_vehicule.intervention_id "
-                    + "WHERE intervention_vehicule.intervention_id = ?;");
+                    + "WHERE intervention_vehicule.vehicule_id = ?;");
             requeteSql.setInt(1, idFonction);
             resultatRequete = requeteSql.executeQuery();
         

@@ -127,6 +127,7 @@
             .side-menu a {
                 display: block;
                 padding: 1.2rem 0rem;
+                text-decoration: none;
             }
             
             .side-menu a.active {
@@ -370,6 +371,9 @@
                 color: #666;
             }
             
+            .add a{
+                text-decoration: none;
+            }
             input, button, select {
                 outline: none;
             }
