@@ -18,7 +18,8 @@ public class Caserne {
     private String copos;
     private String ville; 
     private ArrayList<Pompier> lesPompiers ;
-
+    private ArrayList<Vehicule> lesVehicules ;
+     
     public Caserne() {
     }
 
@@ -81,5 +82,15 @@ public class Caserne {
         }
         lesPompiers.add(p);
     }
+
+    public ArrayList<Vehicule> getLesVehicules() {
+        return lesVehicules;
+    }
+
+    public void setLesVehicules(ArrayList<Vehicule> lesVehicules) {
+        this.lesVehicules = lesVehicules;
+    }
+    
+    
     
 }
