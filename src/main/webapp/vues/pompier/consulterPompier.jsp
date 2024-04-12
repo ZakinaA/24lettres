@@ -72,7 +72,9 @@
                         <li><div class="spanConsulter"><%= intervention.getHeureAppel() %></div></li>
                         <li><div class="spanConsulter"><%= intervention.getHeureArrivee() %></div></li>
                         <li><div class="spanConsulter"><%= intervention.getDuree() %></div></li>
+                        </br>
                     <% } %>
+                        
                 </ul>
             </div>
         </div>
