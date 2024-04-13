@@ -15,11 +15,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Caserne;
 import model.Grade;
-import model.Intervention;
 import model.Pompier;
 
 /**
@@ -134,7 +135,7 @@ public class ServletPompier extends HttpServlet {
     @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    
+   
     FormPompier form = new FormPompier();
     
     /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */

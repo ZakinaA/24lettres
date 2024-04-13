@@ -114,7 +114,7 @@ public class Pompier {
     public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
         this.lesFonctions = lesFonctions;
     }
-    
+
     public ArrayList<Intervention> getLesInterventions() {
         return lesInterventions;
     }
