@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Caserne;
+import model.Intervention;
 import model.Situation;
 
 /**
@@ -96,7 +97,14 @@ public class ServletSituation extends HttpServlet {
             System.out.println( "Situation à afficher = " + idSituation);
             Situation s= DaoSituation.getSituationById(cnx, idSituation);
             request.setAttribute("sSituation", s);
-            getServletContext().getRequestDispatcher("/vues/caserne/consulterCaserne.jsp").forward(request, response); 
+            ArrayList<Intervention> lesInterventions = DaoSituation.getInterventionsBySituationId(cnx, idSituation);
+            request.setAttribute("lesInterventions", lesInterventions);
+
+            
+            Situation n = DaoSituation.getNomSituationById(cnx, idSituation);
+            request.setAttribute("sNom", n);
+            
+            getServletContext().getRequestDispatcher("/vues/situation/consulterSituation.jsp").forward(request, response); 
         }
     }
     /**

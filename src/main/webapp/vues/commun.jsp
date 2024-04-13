@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../ServletIntervention/lister">
+                        <a href="../ServletSituation/lister">
                             <span class="las la-shopping-cart"></span>
                             <small>Situations</small>
                         </a>

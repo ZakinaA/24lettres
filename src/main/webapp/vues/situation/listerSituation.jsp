@@ -42,12 +42,12 @@
                                 <tr>
                                     <td><%= s.getId() %></td>
                                     <td><%= s.getLibelle() %></td>
-                                    <td></td>
+    
                                     <td></td>
                                     <td>
                                         <div class="actions">
-                                            <span class="lab la-telegram-plane"><%out.println("<td><a href ='../ServletPompier/consulter?idPompier="+ p.getId()+ "'> Consulter </a>");%></span>
-                                            <span class="las la-eye"><%out.println("<td><a href ='../ServletPompier/modifier'> Modifier </a>");%></span>
+                                            <span class="lab la-telegram-plane"><%out.println("<td><a href ='../ServletSituation/consulter?idSituation="+ s.getId()+ "'> Consulter </a>");%></span>
+                                            <span class="las la-eye"><%out.println("<td><a href ='../ServletSituation/modifier'> Modifier </a>");%></span>
                                         </div>
                                     </td>
                                 </tr>

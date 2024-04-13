@@ -72,7 +72,7 @@ public class DaoSituation {
         
         while (resultatRequete.next()){
             
-             i = new Intervention();
+            i = new Intervention();
             i.setId(resultatRequete.getInt("i_id"));
             i.setLieu(resultatRequete.getString("i_lieu"));
             
