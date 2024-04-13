@@ -124,4 +124,28 @@ public class DaoSituation {
         return s ;
     }
     
+    public static Situation getNomSituationById (Connection cnx, int idSituation){
+        
+        Situation n = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement("SELECT situation.id AS s_id, situation.libelle AS s_libelle "
+                    + "FROM situation "
+                    + "WHERE situation.id = ?;");
+            requeteSql.setInt(1, idSituation);
+            resultatRequete = requeteSql.executeQuery();
+            
+            while (resultatRequete.next()){
+                n = new Situation();
+                n.setId(resultatRequete.getInt("s_id"));
+                n.setLibelle(resultatRequete.getString("s_libelle"));
+            }
+        }
+          catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return n ;    
+    }
 }
