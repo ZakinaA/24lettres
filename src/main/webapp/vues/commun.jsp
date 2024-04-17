@@ -49,13 +49,7 @@
 
 
             <div class="side-menu">
-                <ul><div class="separator"></div>
-                    <li>
-                        <a href="../ServletIntervention/lister">
-                            <span class="las la-shopping-cart"></span>
-                            <small>&nbsp;Accueil&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
-                        </a>
-                    </li>
+                <ul>
                     <div class="separator"></div>
                     <li>
                         <a href="../ServletPompier/lister">

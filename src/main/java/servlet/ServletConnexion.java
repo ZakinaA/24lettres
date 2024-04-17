@@ -30,7 +30,7 @@ public class ServletConnexion extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/ServletPompier/lister");
         } else {
             // Si l'authentification échoue, rediriger vers la page de connexion avec un message d'erreur
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "");
         }
     }
 }
