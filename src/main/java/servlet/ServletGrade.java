@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package servlet;
 
-import database.DaoCaserne;
 import database.DaoGrade;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
@@ -17,8 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Grade;
-import model.Pompier;
-import model.Vehicule;
 
 /**
  *
@@ -86,22 +79,13 @@ public class ServletGrade extends HttpServlet {
             getServletContext().getRequestDispatcher("/vues/grade/listerGrade.jsp").forward(request, response);
         }
         
-        if(url.equals("/sdisweb/ServletCaserne/consulter"))
+        if(url.equals("/sdisweb/ServletGrade/consulter"))
         {  
-            // tout paramètre récupéré de la request Http est de type String
-            // Il est donc nécessaire de caster le paramètre idPompier en int
-            int idCaserne = Integer.parseInt((String)request.getParameter("idIntervention"));
-            System.out.println( "pompier à afficher = " + idCaserne);
-            ArrayList<Pompier> lesPompiers = DaoCaserne.getPompiersByCaserneId(cnx, idCaserne);
-            request.setAttribute("lesPompiers", lesPompiers);
-            
-            System.out.println( "pompier à afficher = " + idCaserne);
-            ArrayList<Vehicule> lesVehicules = DaoCaserne.getVehiculeByCaserneId(cnx, idCaserne);
-            request.setAttribute("lesVehicules", lesVehicules);
-            
-            
-            getServletContext().getRequestDispatcher("/vues/caserne/consulterCaserne.jsp").forward(request, response);       
-           
+            int idGrade = Integer.parseInt((String)request.getParameter("idGrade"));
+            System.out.println( "Grade à afficher = " + idGrade);
+            Grade g = DaoGrade.getGradeById(cnx, idGrade);
+            request.setAttribute("pGrade", g);
+            getServletContext().getRequestDispatcher("/vues/grade/consulterGrade.jsp").forward(request, response);       
         }
 
     }

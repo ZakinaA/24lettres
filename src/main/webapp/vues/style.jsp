@@ -16,7 +16,7 @@
 
             :root {
                 --main-color: #22BAA0;
-                --color-dark: #34425A;
+                --color-dark: #DA001B;
                 --text-grey: #B0B0B0;
             }
             
@@ -47,7 +47,7 @@
             
             .side-header {
                 box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
-                background: var(--main-color);
+                background: grey;
                 height: 60px;
                 display: flex;
                 justify-content: center;
@@ -112,7 +112,7 @@
             }
             
             .profile small {
-                color: #899DC1;
+                color: white;
                 font-weight: 600;
             }
             
@@ -145,7 +145,7 @@
             }
             
             .side-menu a span, .side-menu a small {
-                color: #899DC1;
+                color: white;
             }
             
             #menu-toggle:checked ~ .sidebar {
@@ -189,7 +189,7 @@
                 z-index: 100;
                 height: 60px;
                 box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
-                background: #fff;
+                background: #E9EDF2;
                 transition: left 300ms;
             }
             
@@ -373,6 +373,7 @@
             
             .add a{
                 text-decoration: none;
+                color:white;
             }
             input, button, select {
                 outline: none;
@@ -390,7 +391,7 @@
             }
             
             .add button {
-                background: var(--main-color);
+                background-color: #DA001B;
                 color: #fff;
                 height: 37px;
                 border-radius: 4px;

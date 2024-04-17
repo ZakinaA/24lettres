@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 /**
  *
  * @author Zakina
@@ -20,7 +21,6 @@ public class ConnexionBdd {
     public static Statement st=null;
     public static ResultSet rs=null;
        
-    // Méthode de création et d'ouverture de la connexion
     public static Connection ouvrirConnexion(){
         try {
                 Class.forName("org.mariadb.jdbc.Driver");
@@ -41,6 +41,87 @@ public class ConnexionBdd {
      
     }
    
+    public static boolean verifierAuthentification(String email, String motDePasse) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        boolean authentifie = false;
+
+        try {
+            conn = ouvrirConnexion();
+            stmt = conn.createStatement();
+            String sql = "SELECT COUNT(*) FROM compte WHERE email = '" + email + "' AND password = '" + motDePasse + "'";
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                authentifie = count == 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            fermerConnexion(rs);
+            fermerConnexion(stmt);
+            fermerConnexion(conn);
+        }
+        return authentifie;
+    }
+    
+    public static String recupererNomPrenomPompier(String email) {
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    String nomPrenomPompier = "";
+
+    try {
+        conn = ouvrirConnexion();
+        stmt = conn.createStatement();
+        String sql = "SELECT p.nom, p.prenom " +
+                     "FROM compte c " +
+                     "JOIN pompier p ON c.id = p.compte_id " +
+                     "WHERE c.email = '" + email + "'";
+        rs = stmt.executeQuery(sql);
+
+        if (rs.next()) {
+            String nom = rs.getString("nom");
+            String prenom = rs.getString("prenom");
+            nomPrenomPompier = nom + " " + prenom;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        fermerConnexion(rs);
+        fermerConnexion(stmt);
+        fermerConnexion(conn);
+    }
+    return nomPrenomPompier;
+}
+    
+    public static String recupererGradePompier(String email) {
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    String gradePompier = "";
+
+    try {
+        conn = ouvrirConnexion();
+        stmt = conn.createStatement();
+        String sql = "SELECT g.libelle FROM grade g INNER JOIN pompier p ON g.id = p.grade_id INNER JOIN compte c ON p.compte_id = c.id WHERE c.email = '" + email + "'";
+        rs = stmt.executeQuery(sql);
+
+        if (rs.next()) {
+            gradePompier = rs.getString("libelle");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        fermerConnexion(rs);
+        fermerConnexion(stmt);
+        fermerConnexion(conn);
+    }
+    return gradePompier;
+}
+    
     // Méthode de fermeture du resultset
     public static void fermerConnexion(ResultSet rs)
     {

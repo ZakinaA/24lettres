@@ -38,7 +38,7 @@ public class DaoSituation {
         ArrayList<Situation> lesSituations = new ArrayList<Situation>();
         try{
             requeteSql = cnx.prepareStatement("SELECT situation.id AS s_id,"
-                    + " situation.libelle AS s_libelle"
+                    + " situation.libelle AS s_libelle, situation.description AS s_description"
                     + " FROM situation;");
             resultatRequete = requeteSql.executeQuery();
             
@@ -47,6 +47,7 @@ public class DaoSituation {
                 Situation s = new Situation();
                     s.setId(resultatRequete.getInt("s_id"));
                     s.setLibelle(resultatRequete.getString("s_libelle"));
+                    s.setDescription(resultatRequete.getString("s_description"));
                      
                 lesSituations.add(s);
             }
@@ -100,7 +101,7 @@ public class DaoSituation {
         Situation s = null ;
         try{
             requeteSql = cnx.prepareStatement("SELECT situation.id AS s_id,"
-            + " situation.libelle AS s_libelle"
+            + " situation.libelle AS s_libelle, situation.description AS s_description"
             + " FROM situation"
             + " WHERE situation.id = ?;");
             requeteSql.setInt(1, idSituation);
@@ -111,6 +112,8 @@ public class DaoSituation {
                     s = new Situation();
                     s.setId(resultatRequete.getInt("s_id"));
                     s.setLibelle(resultatRequete.getString("s_libelle"));
+                    s.setDescription(resultatRequete.getString("s_description"));
+                    
                     
                     ArrayList<Intervention> lesInterventions = DaoSituation.getInterventionsBySituationId(cnx, idSituation);
                     s.setLesInterventions(lesInterventions);

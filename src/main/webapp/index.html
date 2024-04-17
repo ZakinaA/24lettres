@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<html lang="fr">
+<head>
+    <title>Connexion</title>
+    <meta charset="utf-8"/>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .connexionhtml {
+            display: flex;
+            width: 80%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cadre1 {
+            background: white;
+            padding: 20px;
+            width: 30%;
+            height: 532px;
+            text-align: center;
+        }
+
+        .cadre1 h1 {
+            color: red;
+            font-size: 40px;
+            padding-right: 50px;
+            margin: 0;
+        }
+
+        h3 {
+            color: white;
+            font-size: 40px;
+            padding-right: 50px;
+            padding-top: 200px;
+            margin: 0;
+        }
+
+        .inscrire {
+            padding-left: 100px;
+        }
+
+        .rectangle {
+            background-color: red;
+            width: 35%;
+            height: 532px;
+        }
+    </style>
+</head>
+<body>
+<div class="connexionhtml">
+    <div class="cadre1">
+        <br><br><br><br><br>
+        <h1>Connexion</h1>
+        <br>
+        <br>
+        <form action="connexion" method="post">
+            <label for="mail">Mail</label>
+            <input type="mail" id="mail" name="mail">
+            <br>
+            <br>
+            <label for="pass">Pass</label>
+            <input type="password" id="pass" name="pass">
+            <br>
+            <br>
+            <button type="submit">Se connecter</button>
+        </form>
+    </div>
+    <div class="rectangle">
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bonjour, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bon retour !</h3>
+    </div>
+</div>
+</body>
 </html>

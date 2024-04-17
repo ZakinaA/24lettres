@@ -14,6 +14,7 @@ public class Situation {
     
     private int id;
     private String libelle;
+    private String description;
     private ArrayList<Intervention> lesInterventions;
     
     public int getId() {
@@ -28,6 +29,13 @@ public class Situation {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }

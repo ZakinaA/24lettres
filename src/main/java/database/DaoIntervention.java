@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Intervention;
 import model.Pompier;
+import model.Vehicule;
 
 /**
  *
@@ -123,6 +124,31 @@ public class DaoIntervention {
         return lesPompiers;
     }
     
+    public static ArrayList<Vehicule> getLesVehiculesByIntervention(Connection cnx, int idIntervention) {
+    ArrayList<Vehicule> lesVehicules = new ArrayList<>();
+    
+    try {
+        PreparedStatement requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat "
+                + "FROM vehicule "
+                + "INNER JOIN intervention_vehicule ON vehicule.id = intervention_vehicule.vehicule_id "
+                + "WHERE intervention_vehicule.intervention_id = ?");
+        requeteSql.setInt(1, idIntervention);
+        ResultSet resultatRequete = requeteSql.executeQuery();
+
+        while (resultatRequete.next()) {
+            Vehicule vehicule = new Vehicule();
+            vehicule.setId(resultatRequete.getInt("v_id"));
+            vehicule.setImmat(resultatRequete.getString("v_immat"));
+
+            lesVehicules.add(vehicule);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("La requête de getLesVehiculesByIntervention a généré une erreur");
+    }
+
+    return lesVehicules;
+}
     
     public static Intervention getNomInterventionById(Connection cnx, int idIntervention){
         

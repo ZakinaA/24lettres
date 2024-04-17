@@ -3,63 +3,67 @@
 <%@page import="model.Intervention"%>
 <%@page import="java.util.ArrayList"%>
 <jsp:include page="/vues/commun.jsp" />
-<% ArrayList<Situation> lesSituations = (ArrayList)request.getAttribute("pLesSituations"); %>
-        <main>
-
-            <div class="page-header">
-                <h1>Liste des situations :</h1>
-                <small>Calvados / Caen</small>
-            </div>
-
-            <div class="page-content">
-
-                <div class="records table-responsive">
-
-                    <div class="record-header">
-                        <div class="browse"> </div>
-    
-                    <div class="add"> <!-- Échange de l'ordre des éléments -->
-                        
-                        <button><a href="../ServletSituation/ajouter"> Ajouter une situation</a></button>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Liste des grades</title>
+    <style>
+        .grade-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .grade-card {
+            width: calc(25% - 20px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            position: relative; 
+        }
+        .consult-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #DA001B;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        </br> 
+        </br> 
+        </br> 
+        </br> 
+        <h1>Liste des situations</h1>
     </div>
-</div> 
-                
-                    <div>
-                        <table width="100%">
-                            <thead>
-                                <tr>
-                                    <th><span class="las la-sort"></span> Id</th>
-                                    <th><span class="las la-sort"></span> Libelle</th>
-                                    <th><span class="las la-sort"></span> </th>
-                                    <th><span class="las la-sort"></span> </th>
-                                    <th><span class="las la-sort"></span> Consulter</th>
-                                    <th><span class="las la-sort"></span> Modifier</th>
-                                    <th><span class="las la-sort"></span> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (Situation s : lesSituations) { %>
-                                <tr>
-                                    <td><%= s.getId() %></td>
-                                    <td><%= s.getLibelle() %></td>
-    
-                                    <td></td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"><%out.println("<td><a href ='../ServletSituation/consulter?idSituation="+ s.getId()+ "'> Consulter </a>");%></span>
-                                            <span class="las la-eye"><%out.println("<td><a href ='../ServletSituation/modifier'> Modifier </a>");%></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-
+    <div class="page-content">
+        <div class="record-header">
+                <div class="browse"> </div>
+                <div class="add">
+                    <button><a href="../ServletSituation/ajouter"> Ajouter une situation</a></button>
                 </div>
-            </div>
-            </div>
-
-        </main>
-
-                            
+            </div> 
+        <div class="grade-container">
+            <% ArrayList<Situation> lesSituations = (ArrayList)request.getAttribute("pLesSituations"); %>
+            <% for (Situation s : lesSituations) { %>
+                <div class="grade-card">
+                    <h2><%= s.getLibelle() %></h2>
+                    <br>
+                    <p><strong>Description :</strong> <em><%= s.getDescription() %></em></p> 
+                    <br>
+                    <a href="../ServletSituation/consulter?idSituation=<%= s.getId() %>"><button class="consult-button">Consulter</button></a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

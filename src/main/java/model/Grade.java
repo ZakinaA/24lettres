@@ -14,6 +14,7 @@ public class Grade {
     
     private int id;
     private String libelle;
+    private String description;
     private Surgrade surgrade;
     private ArrayList<Pompier> lesPompiers ;
     
@@ -60,5 +61,14 @@ public class Grade {
     public void setLesPompiers(ArrayList<Pompier> lesPompiers) {
         this.lesPompiers = lesPompiers;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     
 }

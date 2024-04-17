@@ -81,7 +81,7 @@ public class ServletFonction extends HttpServlet {
         if(url.equals("/sdisweb/ServletFonction/lister"))
         {              
             ArrayList<Fonction> lesFonctions = DaoFonction.getLesFonctions(cnx);
-            request.setAttribute("fLesFonctions", lesFonctions);
+            request.setAttribute("pLesFonctions", lesFonctions);
             //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
            getServletContext().getRequestDispatcher("/vues/fonction/listerFonction.jsp").forward(request, response);
         }

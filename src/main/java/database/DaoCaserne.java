@@ -102,7 +102,7 @@ public class DaoCaserne {
         Vehicule v = null;
         
         try{
-            requeteSql = cnx.prepareStatement("SELECT vehciule.id AS v_id, vehicule.immat AS v_immat FROM vehicule WHERE vehicule.caserne_id = ?;");
+            requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat FROM vehicule WHERE vehicule.caserne_id = ?;");
             requeteSql.setInt(1, idPompier);
             resultatRequete = requeteSql.executeQuery();
         

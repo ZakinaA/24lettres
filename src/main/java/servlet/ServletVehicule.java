@@ -94,21 +94,18 @@ public class ServletVehicule extends HttpServlet {
             getServletContext().getRequestDispatcher("/vues/vehicule/listerVehicule.jsp").forward(request, response);
         }
         
-         // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletVehicule/consulter"))
-        {  
-            // tout paramètre récupéré de la request Http est de type String
-            // Il est donc nécessaire de caster le paramètre idPompier en int
-            int idVehicule = Integer.parseInt((String)request.getParameter("idVehicule"));
-            System.out.println( "intervention à afficher = " + idVehicule);
-            ArrayList<Intervention> lesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
-            request.setAttribute("lesInterventions", lesInterventions);
-            
-            Vehicule n = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
-            request.setAttribute("vNom", n);
-            
-            getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);       
-           
+        
+    if (url.equals("/sdisweb/ServletVehicule/consulter")) {
+    int idVehicule = Integer.parseInt((String) request.getParameter("idVehicule"));
+    Vehicule vehicule = DaoVehicule.getVehiculeById(cnx, idVehicule);
+    ArrayList<Intervention> listeDesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
+    Vehicule nomVehicule = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
+    request.setAttribute("vVehicule", vehicule);
+    request.setAttribute("lesInterventions", listeDesInterventions);
+    request.setAttribute("vNom", nomVehicule);
+    getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);
+
+          
            
         }
         

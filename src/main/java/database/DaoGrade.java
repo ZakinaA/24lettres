@@ -40,6 +40,7 @@ public class DaoGrade {
             requeteSql = cnx.prepareStatement("SELECT grade.id AS g_id,"
                     + " grade.libelle AS g_libelle,"
                     + " grade.surgrade_id AS g_surgradeid,"
+                    + " grade.description AS g_description,"
                     + " surgrade.id AS s_id,"
                     + " surgrade.libelle AS s_libelle"
                     + " FROM grade"
@@ -52,6 +53,7 @@ public class DaoGrade {
                 Grade g = new Grade();
                     g.setId(resultatRequete.getInt("g_id"));
                     g.setLibelle(resultatRequete.getString("g_libelle"));
+                    g.setDescription(resultatRequete.getString("g_description"));
                     
                 Surgrade s = new Surgrade();
                     s.setId(resultatRequete.getInt("s_id"));

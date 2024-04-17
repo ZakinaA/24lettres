@@ -61,13 +61,7 @@ public static Vehicule getVehiculeById(Connection cnx, int idVehicule){
 
     Vehicule v = null ;
     try{
-        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision, vehicule_type.nom AS vt_nom, intervention.id AS i_id, intervention.lieu AS i_lieu, intervention.date AS i_date "
-                + "FROM vehicule "
-                + "INNER JOIN type_vehicule "
-                + "ON type_vehicule.id = vehicule.type_vehicule_id "
-                + "INNER JOIN intervention "
-                + "ON intervention.id = intervention_vehicule.intervention_id"
-                + "where vehicule.id= ? ;");
+        requeteSql = cnx.prepareStatement("SELECT vehicule.id AS v_id, vehicule.immat AS v_immat, vehicule.dateOrigine AS v_dateOrigine, vehicule.dateRevision AS v_dateRevision, type_vehicule.nom AS vt_nom FROM vehicule INNER JOIN type_vehicule ON type_vehicule.id = vehicule.type_vehicule_id where vehicule.id= ? ;");
         requeteSql.setInt(1, idVehicule);
         resultatRequete = requeteSql.executeQuery();
 
