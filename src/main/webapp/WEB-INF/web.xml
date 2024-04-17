@@ -5,7 +5,7 @@
         <listener-class>database.InitConnexion</listener-class>
     </listener>
     
-    <!-- ServletPompier -->
+    <!-- ServletPompier --> 
     <servlet>
         <servlet-name>ServletPompier</servlet-name>
         <servlet-class>servlet.ServletPompier</servlet-class>
@@ -109,6 +109,20 @@
     <servlet-mapping>
         <servlet-name>ServletGrade</servlet-name>
         <url-pattern>/ServletGrade/consulter</url-pattern>
+    </servlet-mapping>
+    
+     <!-- ServletSituation -->
+    <servlet>
+        <servlet-name>ServletSituation</servlet-name>
+        <servlet-class>servlet.ServletSituation</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSituation</servlet-name>
+        <url-pattern>/ServletSituation/lister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSituation</servlet-name>
+        <url-pattern>/ServletSituation/consulter</url-pattern>
     </servlet-mapping>
     
     <session-config>

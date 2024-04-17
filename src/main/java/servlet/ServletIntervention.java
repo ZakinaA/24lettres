@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import model.Intervention;
 import model.Pompier;
+import model.Vehicule;
 
 /**
  *
@@ -95,8 +96,15 @@ public class ServletIntervention extends HttpServlet {
             System.out.println( "pompier à afficher = " + idIntervention);
             ArrayList<Pompier> lesPompiers = DaoIntervention.getLesPompiersByIntervention(cnx, idIntervention);
             request.setAttribute("lesPompiers", lesPompiers);
-            getServletContext().getRequestDispatcher("/vues/intervention/ConsulterIntervention.jsp").forward(request, response);       
-           
+            
+            System.out.println( "véhicule à afficher = " + idIntervention);
+            ArrayList<Vehicule> lesVehicules = DaoIntervention.getLesVehiculesByIntervention(cnx, idIntervention);
+            request.setAttribute("lesVehicules", lesVehicules);
+            
+            Intervention n = DaoIntervention.getNomInterventionById(cnx, idIntervention);
+            request.setAttribute("iNom", n);
+            
+            getServletContext().getRequestDispatcher("/vues/intervention/consulterIntervention.jsp").forward(request, response);       
            
         }
         

@@ -15,6 +15,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import model.Caserne;
@@ -98,6 +100,8 @@ public class ServletPompier extends HttpServlet {
             System.out.println( "pompier à afficher = " + idPompier);
             Pompier p= DaoPompier.getPompierById(cnx, idPompier);
             request.setAttribute("pPompier", p);
+            
+        
             getServletContext().getRequestDispatcher("/vues/pompier/consulterPompier.jsp").forward(request, response);       
            
            
@@ -131,7 +135,7 @@ public class ServletPompier extends HttpServlet {
     @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    
+   
     FormPompier form = new FormPompier();
     
     /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */

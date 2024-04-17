@@ -14,6 +14,7 @@ public class Fonction {
     
     private int id;
     private String libelle ;
+    private String description ;
     private ArrayList<Pompier> lesPompiers ;
 
     public Fonction() {
@@ -47,6 +48,15 @@ public class Fonction {
     public void setLesPompiers(ArrayList<Pompier> lesPompiers) {
         this.lesPompiers = lesPompiers;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     
     public void addPompier(Pompier p){
         if (lesPompiers == null){

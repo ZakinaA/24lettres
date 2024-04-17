@@ -62,8 +62,10 @@ public class FormVehicule {
         Vehicule v  = new Vehicule();
          
         String immat = getDataForm( request, "immat" );
-        String dateOrigine = getDataForm(request, "dateOrigine");
-        String dateRevision = getDataForm(request, "dateRevision");
+        String dateOrigineString = getDataForm(request, "dateOrigine");
+        LocalDate dateOrigine = LocalDate.parse(dateOrigineString);
+        String dateRevisionString = getDataForm(request, "dateRevision");
+        LocalDate dateRevision = LocalDate.parse(dateRevisionString);
         int idVehicule = Integer.parseInt((String)getDataForm( request, "idVehicule" ));
        
       
