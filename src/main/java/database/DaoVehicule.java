@@ -149,21 +149,24 @@ public static Vehicule getNomVehiculeById(Connection cnx, int idVehicule){
 public static Vehicule addVehicule(Connection connection, Vehicule v) {
     int idGenere = -1;
     try {
-        requeteSql = connection.prepareStatement("INSERT INTO vehicule (immat, dateOrigine, dateRevision) VALUES (?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+        requeteSql = connection.prepareStatement("INSERT INTO vehicule (immat, dateOrigine, dateRevision, type_vehicule_id) VALUES (?, ?, ?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
         requeteSql.setString(1, v.getImmat());
         requeteSql.setDate(2, Date.valueOf(v.getDateOrigine()));
         requeteSql.setDate(3, Date.valueOf(v.getDateRevision()));
+        requeteSql.setInt(4, v.getTypeVehicule().getId());
+
         requeteSql.executeUpdate();
 
         resultatRequete = requeteSql.getGeneratedKeys();
-        if (resultatRequete.next()) {
+        while (resultatRequete.next()) {
             idGenere = resultatRequete.getInt(1);
             v.setId(idGenere);
-        } else {
-            System.err.println("Aucun ID généré trouvé après l'insertion de la fonction");
-        }
+            
+            v = DaoVehicule.getVehiculeById(connection, v.getId());
+        } 
     } catch (SQLException e) {
-        e.printStackTrace();
+       e.printStackTrace();
+       System.out.println("Erreur lors de l'insertion en base de données : " + e.getMessage());
     }
     return v;
 }

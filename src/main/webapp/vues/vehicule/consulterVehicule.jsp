@@ -5,6 +5,7 @@
 <jsp:include page="/vues/commun.jsp" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 <% 
+    
     Vehicule vehicule = (Vehicule) request.getAttribute("vVehicule");
     ArrayList<Intervention> lesInterventions = (ArrayList<Intervention>) request.getAttribute("lesInterventions");
 
@@ -45,9 +46,14 @@
                 <br>
                 <br>
                 <ul>
+                    <% if (lesInterventions != null && !lesInterventions.isEmpty()) {%>
                     <% for (Intervention intervention : lesInterventions) { %>
                     <li><%= intervention.getId() %> - <%= intervention.getLieu() %> - <%= intervention.getDate() %></li>
                     <% } %>
+                    
+                    <%} else { %>
+                    <li>Aucune intervention trouvé</li>
+                    <% }%>
                 </ul>
             </div>
 
