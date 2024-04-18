@@ -26,6 +26,7 @@
                         <i class="zmdi zmdi-directions-car" style="font-size: 48px; margin-right: 20px;"></i> 
                         <div>
                             <p style="font-weight: bold; margin-bottom: 5px; margin-top: 0;"><%= vehicule.getImmat() %></p>
+                            <p style="font-style: italic;"><%= vehicule.getTypeVehicule().getNom() %></p>
                         </div>
                         <div class="actions" style="margin-left: auto;">
                             <a href="../ServletVehicule/consulter?idVehicule=<%= vehicule.getId() %>"><button>Consulter</button></a>
