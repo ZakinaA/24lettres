@@ -74,10 +74,12 @@ public class ServletTypeVehicule extends HttpServlet {
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     
-    String url = request.getRequestURI();  
+    String url = request.getRequestURI().toLowerCase(); 
+     
+    String[] args = url.split("/");
     
     // Récup et affichage les types de véhicules 
-    if(url.equals("/sdisweb/ServletTypeVehicule/lister"))
+    if(args[3].equals("lister"))
     {              
         ArrayList<TypeVehicule> lesTypeVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
         if (lesTypeVehicules == null) {

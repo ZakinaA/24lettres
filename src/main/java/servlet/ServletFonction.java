@@ -75,10 +75,12 @@ public class ServletFonction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         String url = request.getRequestURI();  
+        String url = request.getRequestURI().toLowerCase(); 
+     
+        String[] args = url.split("/");
        
         // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletFonction/lister"))
+        if(args[3].equals("lister"))
         {              
             ArrayList<Fonction> lesFonctions = DaoFonction.getLesFonctions(cnx);
             request.setAttribute("pLesFonctions", lesFonctions);
@@ -86,8 +88,8 @@ public class ServletFonction extends HttpServlet {
            getServletContext().getRequestDispatcher("/vues/fonction/listerFonction.jsp").forward(request, response);
         }
         
-         // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletFonction/consulter"))
+        // Récup et affichage des clients interessés par une certaine catégorie de ventes
+        else if(args[3].equals("consulter"))
         {  
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idPompier en int
@@ -104,7 +106,7 @@ public class ServletFonction extends HttpServlet {
            
         }
         
-        if(url.equals("/sdisweb/ServletFonction/ajouter"))
+        else if(url.equals("ajouter"))
         {                   
             ArrayList<Fonction> lesFonctions = DaoFonction.getLesFonctions(cnx);
             request.setAttribute("fLesFonctions", lesFonctions);

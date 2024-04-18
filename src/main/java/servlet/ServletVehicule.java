@@ -78,10 +78,12 @@ public class ServletVehicule extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         String url = request.getRequestURI();  
+        String url = request.getRequestURI().toLowerCase(); 
+     
+        String[] args = url.split("/");
        
         // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletVehicule/lister"))
+        if(args[3].equals("lister"))
         {              
             ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
             request.setAttribute("vLesVehicules", lesVehicules);
@@ -95,21 +97,21 @@ public class ServletVehicule extends HttpServlet {
         }
         
         
-    if (url.equals("/sdisweb/ServletVehicule/consulter")) {
-    int idVehicule = Integer.parseInt((String) request.getParameter("idVehicule"));
-    Vehicule vehicule = DaoVehicule.getVehiculeById(cnx, idVehicule);
-    ArrayList<Intervention> listeDesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
-    Vehicule nomVehicule = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
-    request.setAttribute("vVehicule", vehicule);
-    request.setAttribute("lesInterventions", listeDesInterventions);
-    request.setAttribute("vNom", nomVehicule);
-    getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);
+        else if (args[3].equals("consulter")) {
+            int idVehicule = Integer.parseInt((String) request.getParameter("idVehicule"));
+            Vehicule vehicule = DaoVehicule.getVehiculeById(cnx, idVehicule);
+            ArrayList<Intervention> listeDesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
+            Vehicule nomVehicule = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
+            request.setAttribute("vVehicule", vehicule);
+            request.setAttribute("lesInterventions", listeDesInterventions);
+            request.setAttribute("vNom", nomVehicule);
+            getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);
 
           
            
         }
         
-       if(url.equals("/sdisweb/ServletVehicule/ajouter")) {
+        else if(args[3].equals("ajouter")) {
             ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
             request.setAttribute("vLesVehicules", lesVehicules);
     
