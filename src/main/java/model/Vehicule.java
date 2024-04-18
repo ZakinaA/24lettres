@@ -23,7 +23,7 @@ public class Vehicule {
     public Vehicule() {  
     }
 
-    public Vehicule(int id, String immat, LocalDate dateOrigine, LocalDate dateRevision, TypeVehicule typeVehicule) {
+    public Vehicule(int id, String immat, LocalDate dateOrigine, LocalDate dateRevision) {
         this.id = id;
         this.immat = immat;
         this.dateOrigine = dateOrigine;

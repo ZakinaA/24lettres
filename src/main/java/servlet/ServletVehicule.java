@@ -98,10 +98,14 @@ public class ServletVehicule extends HttpServlet {
     if (url.equals("/sdisweb/ServletVehicule/consulter")) {
     int idVehicule = Integer.parseInt((String) request.getParameter("idVehicule"));
     Vehicule vehicule = DaoVehicule.getVehiculeById(cnx, idVehicule);
+    
     ArrayList<Intervention> listeDesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
+    
     Vehicule nomVehicule = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
     request.setAttribute("vVehicule", vehicule);
+    
     request.setAttribute("lesInterventions", listeDesInterventions);
+    
     request.setAttribute("vNom", nomVehicule);
     getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);
 
@@ -109,12 +113,10 @@ public class ServletVehicule extends HttpServlet {
            
         }
         
-       if(url.equals("/sdisweb/ServletVehicule/ajouter")) {
-            ArrayList<Vehicule> lesVehicules = DaoVehicule.getLesVehicules(cnx);
-            request.setAttribute("vLesVehicules", lesVehicules);
-    
-            ArrayList<TypeVehicule> lesTypesVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
-            request.setAttribute("vLesTypeVehicules", lesTypesVehicules);
+    if(url.equals("/sdisweb/ServletVehicule/ajouter")) {
+            
+    ArrayList<TypeVehicule> lesTypesVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
+    request.setAttribute("vLesTypeVehicules", lesTypesVehicules);
 
     
             this.getServletContext().getRequestDispatcher("/vues/vehicule/ajouterVehicule.jsp").forward(request, response);
@@ -146,21 +148,36 @@ public class ServletVehicule extends HttpServlet {
         /* Stockage du formulaire et de l'objet dans l'objet request */
         request.setAttribute( "form", form );
         request.setAttribute( "vVehicule", v );
+        
+        System.out.println("111111111111111");
 		
         if (form.getErreurs().isEmpty()){
             Vehicule vehiculeInsere =  DaoVehicule.addVehicule(cnx, v);
             if (vehiculeInsere != null ){
                 request.setAttribute( "vVehicule", vehiculeInsere );
+                System.out.println("aaaaaaaaaaaaaaaaaa");
+                
                 this.getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp" ).forward( request, response );
+                System.out.println("zzzzzzzzzzzz");
             }
             else 
             {
                 // Cas oùl'insertion en bdd a échoué
                 //renvoyer vers une page d'erreur 
+                 System.out.println("222222222222222222222");
             }
            
         }
-        
+        else
+    { 
+        // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
+        ArrayList<TypeVehicule> lesTypesVehicules = DaoTypeVehicule.getLesTypeVehicules(cnx);
+        request.setAttribute("tLesTypeVehicules", lesTypesVehicules);
+        System.out.println("23333333333333333333333");
+
+        this.getServletContext().getRequestDispatcher("/vues/vehicule/ajouterVehicule.jsp" ).forward( request, response );
+    }
+         
     }
 
     /**

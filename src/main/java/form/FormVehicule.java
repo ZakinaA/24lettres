@@ -69,24 +69,16 @@ public class FormVehicule {
         int idVehicule = Integer.parseInt((String)getDataForm( request, "idVehicule" ));
        
       
-        try {
-             validationImmat( immat );
-        } catch ( Exception e ) {
-            setErreur( "immat", e.getMessage() );
-        }
         v.setImmat(immat);
-
-        if ( erreurs.isEmpty() ) {
-            resultat = "Succès de l'ajout.";
-        } else {
-            resultat = "Échec de l'ajout.";
-        }
-         
-      
         v.setDateOrigine(dateOrigine);
         v.setDateRevision(dateRevision);
         v.setTypeVehicule(new TypeVehicule(idVehicule));
         
+        System.out.println("Immatriculation : " + getDataForm(request, "immat"));
+        System.out.println("Date d'origine : " + getDataForm(request, "dateOrigine"));
+        System.out.println("Date de révision : " + getDataForm(request, "dateRevision"));
+        System.out.println("ID du type de véhicule : " + getDataForm(request, "idVehicule"));
+    
         return v ;
     }
     
