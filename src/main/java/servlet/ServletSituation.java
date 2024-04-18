@@ -1,28 +1,31 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package servlet;
 
-import database.DaoFonction;
-import form.FormFonction;
+import database.DaoCaserne;
+import database.DaoSituation;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
-import model.Fonction;
-import model.Pompier;
+import model.Caserne;
+import model.Intervention;
+import model.Situation;
 
 /**
  *
- * @author zakina
+ * @author ts1sio
  */
-public class ServletFonction extends HttpServlet {
+public class ServletSituation extends HttpServlet {
 
      Connection cnx ;
             
@@ -53,10 +56,10 @@ public class ServletFonction extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletFonction</title>");            
+            out.println("<title>Servlet ServletCaserne</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletFonction at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServletCaserne at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,47 +78,35 @@ public class ServletFonction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         String url = request.getRequestURI();  
+    
+     String url = request.getRequestURI();  
        
         // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletFonction/lister"))
+        if(url.equals("/sdisweb/ServletSituation/lister"))
         {              
-            ArrayList<Fonction> lesFonctions = DaoFonction.getLesFonctions(cnx);
-            request.setAttribute("pLesFonctions", lesFonctions);
+            ArrayList<Situation> lesSituations = DaoSituation.getLesSituations(cnx);
+            request.setAttribute("pLesSituations", lesSituations);
             //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
-           getServletContext().getRequestDispatcher("/vues/fonction/listerFonction.jsp").forward(request, response);
+           getServletContext().getRequestDispatcher("/vues/situation/listerSituation.jsp").forward(request, response);
         }
-        
-         // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletFonction/consulter"))
+        if(url.equals("/sdisweb/ServletSituation/consulter"))
         {  
             // tout paramètre récupéré de la request Http est de type String
-            // Il est donc nécessaire de caster le paramètre idPompier en int
-            int idFonction = Integer.parseInt((String)request.getParameter("idFonction"));
-            System.out.println( "pompier à afficher = " + idFonction);
-            ArrayList<Pompier> lesPompiers = DaoFonction.getLesPompiersByFonction(cnx, idFonction);
-            request.setAttribute("lesPompiers", lesPompiers);
-            
-            Fonction n = DaoFonction.getNomFonctionById(cnx, idFonction);
-            request.setAttribute("fNom", n);
-            
-            getServletContext().getRequestDispatcher("/vues/fonction/consulterFonction.jsp").forward(request, response);       
-           
-           
-        }
-        
-        if(url.equals("/sdisweb/ServletFonction/ajouter"))
-        {                   
-            ArrayList<Fonction> lesFonctions = DaoFonction.getLesFonctions(cnx);
-            request.setAttribute("fLesFonctions", lesFonctions);
-            this.getServletContext().getRequestDispatcher("/vues/fonction/ajouterFonction.jsp" ).forward( request, response );
-        }
-        
-        
-        
-        
-    }
+            // Il est donc nécessaire de caster le paramètre idCaserne en int
+            int idSituation = Integer.parseInt((String)request.getParameter("idSituation"));
+            System.out.println( "Situation à afficher = " + idSituation);
+            Situation s= DaoSituation.getSituationById(cnx, idSituation);
+            request.setAttribute("sSituation", s);
+            ArrayList<Intervention> lesInterventions = DaoSituation.getInterventionsBySituationId(cnx, idSituation);
+            request.setAttribute("lesInterventions", lesInterventions);
 
+            
+            Situation n = DaoSituation.getNomSituationById(cnx, idSituation);
+            request.setAttribute("sNom", n);
+            
+            getServletContext().getRequestDispatcher("/vues/situation/consulterSituation.jsp").forward(request, response); 
+        }
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -127,30 +118,7 @@ public class ServletFonction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         FormFonction form = new FormFonction();
-		
-        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        Fonction f = form.ajouterFonction(request);
-        
-        /* Stockage du formulaire et de l'objet dans l'objet request */
-        request.setAttribute( "form", form );
-        request.setAttribute( "fFonction", f );
-		
-        if (form.getErreurs().isEmpty()){
-            Fonction fonctionInsere =  DaoFonction.addFonction(cnx, f);
-            if (fonctionInsere != null ){
-                request.setAttribute( "fFonction", fonctionInsere );
-                this.getServletContext().getRequestDispatcher("/vues/fonction/consulterFonction.jsp" ).forward( request, response );
-            }
-            else 
-            {
-                // Cas oùl'insertion en bdd a échoué
-                //renvoyer vers une page d'erreur 
-            }
-           
-        }
-        
+        processRequest(request, response);
     }
 
     /**

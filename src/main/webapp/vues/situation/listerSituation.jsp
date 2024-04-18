@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.Situation"%>
 <%@page import="model.Intervention"%>
 <%@page import="java.util.ArrayList"%>
 <jsp:include page="/vues/commun.jsp" />
@@ -6,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Liste des interventions</title>
+    <title>Liste des grades</title>
     <style>
         .grade-container {
             display: flex;
@@ -21,7 +22,7 @@
             padding: 20px;
             margin-bottom: 20px;
             box-sizing: border-box;
-            position: relative;
+            position: relative; 
         }
         .consult-button {
             position: absolute;
@@ -42,29 +43,24 @@
         </br> 
         </br> 
         </br> 
-        <h1>Liste des interventions</h1>
+        <h1>Liste des situations</h1>
     </div>
     <div class="page-content">
         <div class="record-header">
                 <div class="browse"> </div>
                 <div class="add">
-                    <button><a href="../ServletIntervention/ajouter"> Ajouter une intervention</a></button>
+                    <button><a href="../ServletSituation/ajouter"> Ajouter une situation</a></button>
                 </div>
             </div> 
         <div class="grade-container">
-            <% ArrayList<Intervention> lesInterventions = (ArrayList<Intervention>)request.getAttribute("iLesInterventions"); %>
-            <% for (Intervention i : lesInterventions) { %>
+            <% ArrayList<Situation> lesSituations = (ArrayList)request.getAttribute("pLesSituations"); %>
+            <% for (Situation s : lesSituations) { %>
                 <div class="grade-card">
-                    <h2><%= i.getLieu() %></h2>
+                    <h2><%= s.getLibelle() %></h2>
                     <br>
-                    <p><strong>Date :</strong> <%= i.getDate() %></p> 
+                    <p><strong>Description :</strong> <em><%= s.getDescription() %></em></p> 
                     <br>
-                    <p><strong>Heure d'appel :</strong> <%= i.getHeureAppel() %></p> 
-                    <br>
-                    <p><strong>Heure de révision :</strong> <%= i.getHeureArrivee() %></p>
-		    <br>
-                    <p><strong>Durée :</strong> <%= i.getDuree() %></p>
-                    <a href="../ServletIntervention/consulter?idIntervention=<%= i.getId() %>"><button class="consult-button">Consulter</button></a>
+                    <a href="../ServletSituation/consulter?idSituation=<%= s.getId() %>"><button class="consult-button">Consulter</button></a>
                 </div>
             <% } %>
         </div>

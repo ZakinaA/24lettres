@@ -6,7 +6,7 @@ package servlet;
 
 import database.DaoTypeVehicule;
 import database.DaoVehicule;
-import form.FormFonction;
+import form.FormVehicule;
 import form.FormVehicule;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.util.ArrayList;
+import model.Intervention;
 import model.TypeVehicule;
 import model.Vehicule;
 
@@ -93,17 +94,18 @@ public class ServletVehicule extends HttpServlet {
             getServletContext().getRequestDispatcher("/vues/vehicule/listerVehicule.jsp").forward(request, response);
         }
         
-         // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletVehicule/consulter"))
-        {  
-            // tout paramètre récupéré de la request Http est de type String
-            // Il est donc nécessaire de caster le paramètre idPompier en int
-            int idVehicule = Integer.parseInt((String)request.getParameter("idVehicule"));
-            System.out.println( "vehicule à afficher = " + idVehicule);
-            Vehicule f= DaoVehicule.getVehiculeById(cnx, idVehicule);
-            request.setAttribute("vVehicule", f);
-            getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);       
-           
+        
+    if (url.equals("/sdisweb/ServletVehicule/consulter")) {
+    int idVehicule = Integer.parseInt((String) request.getParameter("idVehicule"));
+    Vehicule vehicule = DaoVehicule.getVehiculeById(cnx, idVehicule);
+    ArrayList<Intervention> listeDesInterventions = DaoVehicule.getLesInterventionsByVehicule(cnx, idVehicule);
+    Vehicule nomVehicule = DaoVehicule.getNomVehiculeById(cnx, idVehicule);
+    request.setAttribute("vVehicule", vehicule);
+    request.setAttribute("lesInterventions", listeDesInterventions);
+    request.setAttribute("vNom", nomVehicule);
+    getServletContext().getRequestDispatcher("/vues/vehicule/consulterVehicule.jsp").forward(request, response);
+
+          
            
         }
         

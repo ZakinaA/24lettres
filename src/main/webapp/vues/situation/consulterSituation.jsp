@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Intervention"%>
+<%@page import="model.Situation"%>
 <%@page import="java.util.ArrayList"%>
 <jsp:include page="/vues/commun.jsp" />
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
             padding: 20px;
             margin-bottom: 20px;
             box-sizing: border-box;
-            position: relative;
+            position: relative; 
         }
         .consult-button {
             position: absolute;
@@ -42,18 +43,17 @@
         </br> 
         </br> 
         </br> 
-        <h1>Liste des interventions</h1>
+        <% Situation n = (Situation)request.getAttribute("sNom"); %>
+        <% if (n != null) { %>
+        <h1>Les interventions de la situation <% out.println(n.getLibelle()); %> sont : </h1>
+        <% } else { %>
+        <h1>Aucune situation n'a été trouvée.</h1>
+        <% } %>
     </div>
     <div class="page-content">
-        <div class="record-header">
-                <div class="browse"> </div>
-                <div class="add">
-                    <button><a href="../ServletIntervention/ajouter"> Ajouter une intervention</a></button>
-                </div>
-            </div> 
         <div class="grade-container">
             <% ArrayList<Intervention> lesInterventions = (ArrayList<Intervention>)request.getAttribute("iLesInterventions"); %>
-            <% for (Intervention i : lesInterventions) { %>
+            <% for (Intervention i : (ArrayList<Intervention>) request.getAttribute("lesInterventions"))  { %>
                 <div class="grade-card">
                     <h2><%= i.getLieu() %></h2>
                     <br>
@@ -63,7 +63,8 @@
                     <br>
                     <p><strong>Heure de révision :</strong> <%= i.getHeureArrivee() %></p>
 		    <br>
-                    <p><strong>Durée :</strong> <%= i.getDuree() %></p>
+                    <p><strong>Durée </strong> <%= i.getDuree() %></p>
+		    
                     <a href="../ServletIntervention/consulter?idIntervention=<%= i.getId() %>"><button class="consult-button">Consulter</button></a>
                 </div>
             <% } %>

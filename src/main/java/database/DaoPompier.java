@@ -9,10 +9,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Caserne;
 import model.Fonction;
 import model.Grade;
+import model.Intervention;
 import model.Pompier;
 
 /**
@@ -84,12 +86,51 @@ public class DaoPompier {
         }
         return lesFonctions;
     }
+    
+    public static ArrayList<Intervention> getLesInterventionsByPompier(Connection cnx, int idPompier){
+        
+        ArrayList<Intervention> lesInterventions = new ArrayList<Intervention>();
+        Intervention i = null;
+        
+        try{
+            requeteSql = cnx.prepareStatement ("SELECT intervention.id AS i_id, intervention.lieu AS i_lieu, intervention.date AS i_date, intervention.heureAppel AS i_heureAppel, intervention.heureArrivee AS i_heureArrivee, intervention.duree AS i_duree FROM intervention INNER JOIN pompier_intervention ON intervention.id = pompier_intervention.intervention_id WHERE pompier_intervention.pompier_id = ?;");
+            requeteSql.setInt(1, idPompier);
+            resultatRequete = requeteSql.executeQuery();
+        
+        while (resultatRequete.next()){
+            
+            i = new Intervention();
+            i.setId(resultatRequete.getInt("i_id"));
+            i.setLieu(resultatRequete.getString("i_lieu"));
+            
+            Date date = resultatRequete.getDate("i_date");
+            i.setDate(date.toLocalDate());
+                    
+            i.setHeureAppel(resultatRequete.getString("i_heureAppel"));
+            i.setHeureArrivee(resultatRequete.getString("i_heureArrivee"));
+            i.setDuree(resultatRequete.getString("i_duree"));
+            
+            lesInterventions.add(i);
+            }
+        }
+        
+        
+        catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("La requête de getLesInterventionsByPompier a généré une erreur");
+        }
+        return lesInterventions;
+    }
                 
     public static Pompier getPompierById(Connection cnx, int idPompier){
         
         Pompier p = null ;
         try{
-            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle, pompier.numeroBip AS p_numeroBip FROM pompier INNER JOIN caserne ON pompier.caserne_id = caserne.id INNER JOIN grade ON pompier.grade_id = grade.id where pompier.id= ?; ");
+            requeteSql = cnx.prepareStatement("SELECT pompier.id AS p_id, pompier.nom AS p_nom, pompier.sexe AS p_sexe, pompier.telephone AS p_telephone, pompier.prenom AS p_prenom, pompier.dateNaissance AS p_dateNaissance, caserne.id AS c_id, caserne.nom AS c_nom, grade.id AS g_id, grade.libelle AS g_libelle, pompier.numeroBip AS p_numeroBip "
+                    + "FROM pompier "
+                    + "INNER JOIN caserne ON pompier.caserne_id = caserne.id "
+                    + "INNER JOIN grade ON pompier.grade_id = grade.id "
+                    + "where pompier.id= ?; ");
             requeteSql.setInt(1, idPompier);
             resultatRequete = requeteSql.executeQuery();
             
@@ -103,7 +144,10 @@ public class DaoPompier {
                     p.setTelephone(resultatRequete.getString("p_telephone"));
                     p.setPrenom(resultatRequete.getString("p_prenom"));
                     p.setBip(resultatRequete.getString("p_numeroBip"));
-                    p.setDateNaissance(resultatRequete.getString("p_dateNaissance"));
+                    
+                    Date dateNaissance = resultatRequete.getDate("p_dateNaissance");
+                    p.setDateNaissance(dateNaissance.toLocalDate());
+                    
                     
                     Caserne c = new Caserne();
                     c.setId(resultatRequete.getInt("c_id"));
@@ -117,6 +161,9 @@ public class DaoPompier {
                 
                     ArrayList<Fonction> lesFonctions = DaoPompier.getLesFonctionsByPompier(cnx, idPompier);
                     p.setLesFonctions(lesFonctions);
+                    
+                   ArrayList<Intervention> lesInterventions = DaoPompier.getLesInterventionsByPompier(cnx, idPompier);
+                   p.setLesInterventions(lesInterventions);
             }
            
         }
@@ -126,6 +173,7 @@ public class DaoPompier {
         }
         return p ;
     }
+    
     
     
     public static Pompier addPompier(Connection connection, Pompier p){      
@@ -142,7 +190,11 @@ public class DaoPompier {
             requeteSql.setString(2, p.getSexe());
             requeteSql.setString(3, p.getTelephone());
             requeteSql.setInt(4, p.getUneCaserne().getId());
-            requeteSql.setString(5, p.getDateNaissance());
+            
+            LocalDate dateNaiss = p.getDateNaissance();
+            Date DateNaissance = Date.valueOf(dateNaiss);
+            
+            requeteSql.setDate(5, DateNaissance);
             requeteSql.setString(6, p.getPrenom());
             requeteSql.setInt(7, p.getUnGrade().getId());
             requeteSql.setString(8, p.getBip());

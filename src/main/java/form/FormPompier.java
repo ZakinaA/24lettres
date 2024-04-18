@@ -64,39 +64,31 @@ public class FormPompier {
         Pompier p  = new Pompier();
          
         String nom = getDataForm( request, "nom" );
-        String prenom = getDataForm( request, "prenom");
         String sexe = getDataForm( request, "sexe");
         String telephone = getDataForm( request, "telephone");
-        String dateNaissance = getDataForm(request, "dateNaissance");
+        int idCaserne = Integer.parseInt(getDataForm(request, "idCaserne"));
+        String dateNaissanceString = getDataForm(request, "dateNaissance");
+        LocalDate dateNaiss = LocalDate.parse(dateNaissanceString);
+        String prenom = getDataForm( request, "prenom");
+        int idGrade = Integer.parseInt(getDataForm(request, "idGrade"));
         String numeroBip = getDataForm( request, "numBip");
         
-        int idCaserne = Integer.parseInt(getDataForm(request, "idCaserne"));
-        int idGrade = Integer.parseInt(getDataForm(request, "idGrade"));
 
       
-        try {
-             validationNom( nom );
-        } catch ( Exception e ) {
-            setErreur( "nom", e.getMessage() );
-        }
-        p.setNom(nom);
+       
+         p.setNom(nom);
 
-        if ( erreurs.isEmpty() ) {
-            resultat = "Succès de l'ajout.";
-        } else {
-            resultat = "Échec de l'ajout.";
-        }
+        
          
       
-        p.setPrenom(prenom);
         p.setSexe(sexe);
         p.setTelephone(telephone);
-        p.setBip(numeroBip);
-        p.setDateNaissance(dateNaissance);
-        
         p.setUneCaserne(new Caserne(idCaserne));
-        
+        p.setDateNaissance(dateNaiss);
+        p.setPrenom(prenom);
         p.setUnGrade(new Grade(idGrade));
+        p.setBip(numeroBip);
+        
         return p ;
     }
     

@@ -26,8 +26,8 @@ public class DaoFonction {
         
         ArrayList<Fonction> lesFonctions = new ArrayList<Fonction>();
         try{
-            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle "
-                                            + "FROM fonction");
+            requeteSql = cnx.prepareStatement("SELECT fonction.id AS f_id, fonction.libelle AS f_libelle, fonction.description AS f_description "
+                                            + "FROM fonction;");
             resultatRequete = requeteSql.executeQuery();
             
             while (resultatRequete.next()){
@@ -35,9 +35,8 @@ public class DaoFonction {
                 Fonction f = new Fonction();
                     f.setId(resultatRequete.getInt("f_id"));
                     f.setLibelle(resultatRequete.getString("f_libelle"));
+                    f.setDescription(resultatRequete.getString("f_description"));
                     
-             
-                
                 lesFonctions.add(f);
             }
            
@@ -134,6 +133,7 @@ public class DaoFonction {
         }
         return n ;    
     }
+    
     public static Fonction addFonction(Connection connection, Fonction f){      
         int idGenere = -1;
         try

@@ -21,10 +21,11 @@ public class Pompier {
     private String prenom ;
     private String sexe;
     private String telephone;
-    private String dateNaissance;
+    private LocalDate dateNaissance;
     private Caserne uneCaserne ;
     private Grade unGrade ;
     private ArrayList<Fonction> lesFonctions ;
+    private ArrayList<Intervention> lesInterventions ;
 
     public Pompier() {
     }
@@ -91,7 +92,7 @@ public class Pompier {
         return telephone;
     }
 
-    public String getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
@@ -103,7 +104,7 @@ public class Pompier {
         this.telephone = telephone;
     }
 
-    public void setDateNaissance(String dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
     
@@ -113,11 +114,26 @@ public class Pompier {
     public void setLesFonctions(ArrayList<Fonction> lesFonctions) {
         this.lesFonctions = lesFonctions;
     }
+
+    public ArrayList<Intervention> getLesInterventions() {
+        return lesInterventions;
+    }
     
-    public void addPompier(Fonction f){
+    public void setLesInterventions(ArrayList<Intervention> lesInterventions) {
+        this.lesInterventions = lesInterventions;
+    }
+    
+    public void addFonction(Fonction f){
         if (lesFonctions == null){
             lesFonctions = new ArrayList<Fonction>();
         }
         lesFonctions.add(f);
+    }
+    
+     public void addIntervention(Intervention i){
+        if (lesInterventions == null){
+            lesInterventions = new ArrayList<Intervention>();
+        }
+        lesInterventions.add(i);
     }
 }

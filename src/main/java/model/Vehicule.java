@@ -5,6 +5,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,14 +15,15 @@ public class Vehicule {
     
     private int id;
     private String immat;
-    private String dateOrigine;
-    private String dateRevision;
+    private LocalDate dateOrigine;
+    private LocalDate dateRevision;
     private TypeVehicule typeVehicule;
+    private ArrayList<Intervention> lesInterventions ;
     
     public Vehicule() {  
     }
 
-    public Vehicule(int id, String immat, String dateOrigine, String dateRevision, TypeVehicule typeVehicule) {
+    public Vehicule(int id, String immat, LocalDate dateOrigine, LocalDate dateRevision, TypeVehicule typeVehicule) {
         this.id = id;
         this.immat = immat;
         this.dateOrigine = dateOrigine;
@@ -49,19 +51,19 @@ public class Vehicule {
         this.immat = immat;
     }
 
-    public void setDateOrigine(String dateOrigine) {
+    public void setDateOrigine(LocalDate dateOrigine) {
         this.dateOrigine = dateOrigine;
     }
 
-    public void setDateRevision(String dateRevision) {
+    public void setDateRevision(LocalDate dateRevision) {
         this.dateRevision = dateRevision;
     }
 
-    public String getDateOrigine() {
+    public LocalDate getDateOrigine() {
         return dateOrigine;
     }
 
-    public String getDateRevision() {
+    public LocalDate getDateRevision() {
         return dateRevision;
     }
     
@@ -72,4 +74,13 @@ public class Vehicule {
     public void setTypeVehicule(TypeVehicule typeVehicule) {
         this.typeVehicule = typeVehicule;
     }
+
+    public ArrayList<Intervention> getLesInterventions() {
+        return lesInterventions;
+    }
+
+    public void setLesInterventions(ArrayList<Intervention> lesInterventions) {
+        this.lesInterventions = lesInterventions;
+    }
+    
 }
