@@ -69,17 +69,19 @@ public class ServletGrade extends HttpServlet {
             throws ServletException, IOException {
         
     
-     String url = request.getRequestURI();  
+        String url = request.getRequestURI().toLowerCase(); 
+     
+        String[] args = url.split("/");  
        
         // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletGrade/lister"))
+        if(args[3].equals("lister"))
         {              
             ArrayList<Grade> lesGrades = DaoGrade.getLesGrades(cnx);
             request.setAttribute("pLesGrades", lesGrades);
             getServletContext().getRequestDispatcher("/vues/grade/listerGrade.jsp").forward(request, response);
         }
         
-        if(url.equals("/sdisweb/ServletGrade/consulter"))
+        if(args[3].equals("consulter"))
         {  
             int idGrade = Integer.parseInt((String)request.getParameter("idGrade"));
             System.out.println( "Grade à afficher = " + idGrade);

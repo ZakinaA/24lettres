@@ -75,10 +75,12 @@ public class ServletIntervention extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         String url = request.getRequestURI();  
+        String url = request.getRequestURI().toLowerCase(); 
+     
+        String[] args = url.split("/");  
        
         // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletIntervention/lister"))
+        if(args[3].equals("lister"))
         {              
             ArrayList<Intervention> lesInterventions = DaoIntervention.getLesInterventions(cnx);
             request.setAttribute("iLesInterventions", lesInterventions);
@@ -87,7 +89,7 @@ public class ServletIntervention extends HttpServlet {
         }
         
          // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/sdisweb/ServletIntervention/consulter"))
+        else if(args[3].equals("consulter"))
         {  
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idPompier en int
@@ -107,7 +109,7 @@ public class ServletIntervention extends HttpServlet {
            
         }
         
-        if(url.equals("/sdisweb/ServletIntervention/ajouter"))
+        else if(args[3].equals("ajouter"))
         {                   
             ArrayList<Intervention> lesInterventions = DaoIntervention.getLesInterventions(cnx);
             request.setAttribute("iLesInterventions", lesInterventions);

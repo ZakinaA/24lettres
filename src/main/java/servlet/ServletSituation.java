@@ -79,17 +79,19 @@ public class ServletSituation extends HttpServlet {
             throws ServletException, IOException {
         
     
-     String url = request.getRequestURI();  
+        String url = request.getRequestURI().toLowerCase(); 
+     
+        String[] args = url.split("/");
        
         // Récup et affichage les eleves 
-        if(url.equals("/sdisweb/ServletSituation/lister"))
+        if(args[3].equals("lister"))
         {              
             ArrayList<Situation> lesSituations = DaoSituation.getLesSituations(cnx);
             request.setAttribute("pLesSituations", lesSituations);
             //System.out.println("lister eleves - nombres d'élèves récupérés" + lesEleves.size() );
            getServletContext().getRequestDispatcher("/vues/situation/listerSituation.jsp").forward(request, response);
         }
-        if(url.equals("/sdisweb/ServletSituation/consulter"))
+        else if(args[3].equals("consulter"))
         {  
             // tout paramètre récupéré de la request Http est de type String
             // Il est donc nécessaire de caster le paramètre idCaserne en int
